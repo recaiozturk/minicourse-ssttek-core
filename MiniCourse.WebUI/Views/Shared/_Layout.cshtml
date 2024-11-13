@@ -51,8 +51,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @if (!User.Identity.IsAuthenticated)
                                 {
-                                    <li><a class="dropdown-item" href="#!">Giriş Yap</a></li>
-                                    <li><a class="dropdown-item" href="#!">Kayıt Ol</a></li>
+                                    <li><a class="dropdown-item" asp-controller="auth" asp-action="SignIn">Giriş Yap</a></li>
+                                    <li><a class="dropdown-item" asp-controller="auth" asp-action="SignUp">Kayıt Ol</a></li>
                                 }
 
                                 @if (User.Identity.IsAuthenticated)
@@ -67,32 +67,8 @@
             </div>
         </div>
     </nav>
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Shop in style</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-            </div>
-        </div>
-    </header>
-    <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MiniCourse.WebUI</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>*@
-    </header>
+
+
     <section class="py-5">
         @RenderBody()
     </section>

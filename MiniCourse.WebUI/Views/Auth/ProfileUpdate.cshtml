@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "ProfileUpdate";
+}
+
+@model UpdateProfileViewModel
+
+<div class="container">
+    <div class="col-md-4 offset-md-4">
+        <h1>Profil Güncelle</h1>
+        <form asp-controller="Auth" asp-action="ProfileUpdate" method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Kullanıcı Adı</label>
+                <input asp-for="UserName" class="form-control">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Şehir</label>
+                <input asp-for="City" class="form-control">
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
