@@ -37,15 +37,27 @@
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed"
                             data-bs-toggle="collapse"
-                            data-bs-target="#home-collapse"
-                            aria-expanded="true">
+                            data-bs-target="#role-collapse"
+                            aria-expanded="false">
+                        Roller
+                    </button>
+                    <div class="collapse" id="role-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="link-dark rounded">Tüm Roller</a></li>
+                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="RoleCreate" class="link-dark rounded">Rol Ekle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#users-collapse"
+                            aria-expanded="false">
                         Kullanıcılar
                     </button>
-                    <div class="collapse" id="home-collapse">
+                    <div class="collapse" id="users-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a asp-controller="User" asp-action="Index" class="link-dark rounded">Kullanıcı Listesi</a></li>
-                            <li><a asp-controller="User" asp-action="Index" class="link-dark rounded">Kullanıcı Ekle</a></li>
-
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
                         </ul>
                     </div>
                 </li>
@@ -77,5 +89,6 @@
     </main>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/sidebars.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MiniCourse.WebUI.Controllers
+namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
-    public class UserController : Controller
+    [Area("Admin")]
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {

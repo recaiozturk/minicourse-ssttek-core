@@ -2,11 +2,13 @@
 
 namespace MiniCourse.WebUI.Controllers
 {
-    public class AdminController : Controller
+    public class BasketController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Basket()
         {
             return View();
         }
+
+
     }
 }
