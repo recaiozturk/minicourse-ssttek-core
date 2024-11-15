@@ -1,6 +1,6 @@
-﻿namespace MiniCourse.WebUI.ViewModels
+﻿namespace MiniCourse.Service.Auths.DTOs
 {
-    public record SignUpViewModel
+    public record SignUpRequest
     {
         public string UserName { get; set; } = default!;
         public string Password { get; set; } = default!;

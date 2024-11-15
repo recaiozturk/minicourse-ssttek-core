@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MiniCourse.WebUI.Users;
 
 namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UsersController : Controller
+    public class UsersController(IUserService userService) : Controller
     {
-        public IActionResult UserList()
+        public async Task<IActionResult> UserList()
         {
-            return View();
+            var usersResult = await userService.GetUsersAsync();
+
+            return View(usersResult.Data);
         }
     }
 }

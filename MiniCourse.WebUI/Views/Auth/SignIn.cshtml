@@ -3,10 +3,19 @@
     ViewData["Title"] = "SignIn";
 }
 
-@model SignUpViewModel
+@model SignInViewModel
 
 <div class="container">
     <div class="col-md-4 offset-md-4">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <p>@TempData["SuccessMessage"]</p>
+            </div>
+        }
+        @*<div class="text-danger"></div>*@
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+        </div>
         <h1>Giriş yapın</h1>
         <form asp-controller="Auth" asp-action="SignIn" method="post">
             <div class="mb-3">
@@ -19,6 +28,13 @@
                 <label class="form-label">Şifre</label>
                 <input type="password" asp-for="Password" class="form-control">
                 <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" asp-for="RememberMe">
+                <label class="form-check-label" asp-for="RememberMe">
+                    Remember Me
+                </label>
             </div>
 
             <button type="submit" class="btn btn-primary">Giriş</button>
