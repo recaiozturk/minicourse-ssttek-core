@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using MiniCourse.WebUI.Users.Validators;
 using System.Reflection;
 
 
@@ -14,6 +15,9 @@ namespace MiniCourse.WebUI.Extensions.Extensions
             services.AddFluentValidationClientsideAdapters();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //services.AddValidatorsFromAssemblyContaining<UserCreateViewModelValidator>();
+
 
             return services;
         }

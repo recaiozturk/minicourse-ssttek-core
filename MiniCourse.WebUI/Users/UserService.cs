@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using MiniCourse.WebUI.Shared;
 using MiniCourse.WebUI.Users.DTOs;
-using AdminModel = MiniCourse.WebUI.Areas.Admin.Models;
+using MiniCourse.WebUI.Users.ViewModels;
 
 
 
 namespace MiniCourse.WebUI.Users
 {
-    public class UserService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) :IUserService
+    public class UserService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) : IUserService
     {
-        public async Task<ServiceResult<List<AdminModel.UserViewModel>>> GetUsersAsync()
+        public async Task<ServiceResult<List<UserViewModel>>> GetUsersAsync()
         {
             var address = "/api/Users/getusers";
 
@@ -19,16 +19,16 @@ namespace MiniCourse.WebUI.Users
             if (!response.IsSuccessStatusCode)
             {
                 var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-                return ServiceResult<List<AdminModel.UserViewModel>>.Fail(problemDetail!.Detail!);
+                return ServiceResult<List<UserViewModel>>.Fail(problemDetail!.Detail!);
             }
 
-            var users=await response.Content.ReadFromJsonAsync<List<UserResponse>>();
+            var users = await response.Content.ReadFromJsonAsync<List<UserResponse>>();
 
-            List<AdminModel.UserViewModel> userList = new();
+            List<UserViewModel> userList = new();
 
-            if(users!=null)
+            if (users != null)
             {
-                users.ForEach(x => userList.Add(new AdminModel.UserViewModel
+                users.ForEach(x => userList.Add(new UserViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -36,11 +36,95 @@ namespace MiniCourse.WebUI.Users
                 }));
             }
 
-            //var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
-            //tempData["SuccessMessage"] = "Kaydınız Başarili şekilde oluştu";
-
-            return ServiceResult<List<AdminModel.UserViewModel>>.Success(userList);
+            return ServiceResult<List<UserViewModel>>.Success(userList);
 
         }
+
+        public async Task<ServiceResult<UserUpdateViewModel>> GetUserAsync(string userId)
+        {
+            var address = $"/api/Users/getuser?userId={userId}";
+
+            var response = await client.GetAsync(address);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult<UserUpdateViewModel>.Fail(problemDetail!.Detail!);
+            }
+
+            var user = await response.Content.ReadFromJsonAsync<UserResponse>();
+
+            UserUpdateViewModel userViewModel = new UserUpdateViewModel
+            {
+                UserName = user.Name,
+                Email = user.Email,
+                City = user.City,
+                UserID=user.Id
+            };
+
+            return ServiceResult<UserUpdateViewModel>.Success(userViewModel);
+
+        }
+
+        public async Task<ServiceResult> CreateUserAsync(UserCreateViewModel model)
+        {
+            var address = "/api/Users/createuser";
+
+            var response = await client.PostAsJsonAsync(address, model);
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var userResponse = await response.Content.ReadFromJsonAsync<UserCreateResponse>();
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = $"{userResponse!.UserName} adli kullanıcı Başarili şekilde oluştu";
+
+            return ServiceResult.Success();
+        }
+
+        public async Task<ServiceResult> UpdateUserAsync(UserUpdateViewModel model)
+        {
+            var address = "/api/Users/updateuser";
+
+            var response = await client.PutAsJsonAsync(address, model);
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = $" Kullanıcı Başarili şekilde güncellendi";
+
+            return ServiceResult.Success();
+        }
+
+        public async Task<ServiceResult> DeleteUserAsync(string userId)
+        {
+            var address = $"/api/Users/deleteuser?userId={userId}";
+
+            var response = await client.DeleteAsync(address);
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = $" Kullanıcı Başarili şekilde silindi";
+
+            return ServiceResult.Success();
+        }
+
+
     }
 }

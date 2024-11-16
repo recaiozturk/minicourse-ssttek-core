@@ -1,24 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using MiniCourse.WebUI.Areas.Admin.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using MiniCourse.WebUI.Roles;
+using MiniCourse.WebUI.Roles.ViewModels;
+using MiniCourse.WebUI.Users;
 
 namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RolesController : Controller
+    public class RolesController(IRoleService roleService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //var roles = await _roleManager.Roles.Select(x => new RoleViewModel()
-            //{
-            //    Id = x.Id,
-            //    Name = x.Name!
-            //}).ToListAsync();
-
-
-
-            //return View(roles);
-            return View();
+            var rolesResult = await roleService.GetRolesAsync();
+            return View(rolesResult.Data);
         }
 
         public IActionResult RoleCreate()
@@ -27,74 +20,59 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RoleCreate(RoleCreateViewModel request)
+        public async Task<IActionResult> RoleCreate(RoleCreateViewModel model)
         {
-            //var result = await _roleManager.CreateAsync(new AppRole() { Name = request.Name });
+            var roleCreateResult = await roleService.CreateRoleAsync(model);
 
-            //if (!result.Succeeded)
-            //{
+            if (roleCreateResult.AnyError)
+            {
+                foreach (var error in roleCreateResult.Errors!)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
 
-            //    ModelState.AddModelErrorList(result.Errors);
-            //    return View();
-            //}
-
-
-            //TempData["SuccessMessage"] = "Rol oluşturulmuştur.";
+                return View(model);
+            }
             return RedirectToAction(nameof(RolesController.Index));
         }
 
-        public async Task<IActionResult> RoleUpdate(string id)
+        public async Task<IActionResult> RoleUpdate(string roleId)
         {
-            //var roleToUpdate = await _roleManager.FindByIdAsync(id);
-
-            //if (roleToUpdate == null)
-            //{
-            //    throw new Exception("Güncellenecek rol bulunamamıştır.");
-            //}
-
-
-            //return View(new RoleUpdateViewModel() { Id = roleToUpdate.Id, Name = roleToUpdate!.Name! });
-
-            return View();
+            var roleresult = await roleService.GetRoleAsync(roleId);
+            return View(roleresult.Data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RoleUpdate(RoleUpdateViewModel request)
+        public async Task<IActionResult> RoleUpdate(RoleUpdateViewModel model)
         {
 
-            //var roleToUpdate = await _roleManager.FindByIdAsync(request.Id);
+            var updateRoleResult = await roleService.UpdateRoleAsync(model);
 
-            //if (roleToUpdate == null)
-            //{
-            //    throw new Exception("Güncellenecek rol bulunamamıştır.");
-            //}
-            //roleToUpdate.Name = request.Name;
+            if (updateRoleResult.AnyError)
+            {
+                foreach (var error in updateRoleResult.Errors!)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
 
-            //await _roleManager.UpdateAsync(roleToUpdate);
-
-
-            //ViewData["SuccessMessage"] = "Rol bilgisi güncellenmiştir";
-
-            return View();
+                return View(model);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> RoleDelete(string id)
+        public async Task<IActionResult> RoleDelete(string roleId)
         {
-            //var roleToDelete = await _roleManager.FindByIdAsync(id);
+            var deleteRoleResult = await roleService.DeleteRoleAsync(roleId);
 
-            //if (roleToDelete == null)
-            //{
-            //    throw new Exception("Silinecek rol bulunamamıştır.");
-            //}
+            if (deleteRoleResult.AnyError)
+            {
+                foreach (var error in deleteRoleResult.Errors!)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
 
-            //var result = await _roleManager.DeleteAsync(roleToDelete);
-
-            //if (!result.Succeeded)
-            //{
-            //    throw new Exception(result.Errors.Select(x => x.Description).First());
-            //}
-
-            //TempData["SuccessMessage"] = "Rol silinmiştir";
+                return View();
+            }
             return RedirectToAction(nameof(RolesController.Index));
         }
     }

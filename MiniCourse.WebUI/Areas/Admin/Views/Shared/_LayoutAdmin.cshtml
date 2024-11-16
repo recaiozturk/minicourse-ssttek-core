@@ -58,6 +58,7 @@
                     <div class="collapse" id="users-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="link-dark rounded">Kullanıcı Ekle</a></li>
                         </ul>
                     </div>
                 </li>
@@ -87,6 +88,7 @@
             @RenderBody()
         </section>
     </main>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/sidebars.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

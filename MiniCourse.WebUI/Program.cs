@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.DataProtection;
 using MiniCourse.WebUI.Auths;
 using MiniCourse.WebUI.Extensions.Extensions;
 using MiniCourse.WebUI.Handlers;
+using MiniCourse.WebUI.Members;
+using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +38,17 @@ builder.Services.AddHttpClient<IAuthService,AuthService>(x =>
 builder.Services.AddHttpClient<IUserService, UserService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>(); ;
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IRoleService, RoleService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IMemberService, MemberService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
 
 builder.Services.AddMemoryCache();
 

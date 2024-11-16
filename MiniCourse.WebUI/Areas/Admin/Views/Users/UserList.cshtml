@@ -4,12 +4,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@model List<AdminModel.UserViewModel>
+@model List<UserViewModel>
 
 <div class="container">
     <div class="row">
         <div class="col">
             <h1>Kullanıcılar</h1>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <p>@TempData["SuccessMessage"]</p>
+                </div>
+            }
 
             <table class="table table-striped">
                 <thead>
@@ -25,19 +31,26 @@
 
 
                     @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
-                                <td>@item.Email</td>
-                                @*<td>
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            @*<td>
                                     <user-role-names user-id="@item.Id"></user-role-names>
                                 </td>*@
-                                <td>
-                                    <a asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id">Rol ata</a>
-                                </td>
-                            </tr>
-                        }
+                            <td>
+                                <a asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id">Rol ata</a>
+                            </td>
+                            <td>
+                                <a asp-controller="Users" asp-action="UpdateUser" asp-route-userId="@item.Id">Güncelle</a>
+                            </td>
+
+                            <td>
+                                <a asp-controller="Users" asp-action="DeleteUser" asp-route-userId="@item.Id">Sil</a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

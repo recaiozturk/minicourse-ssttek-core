@@ -1,4 +1,4 @@
-﻿namespace MiniCourse.WebUI.Areas.Admin.Models
+﻿namespace MiniCourse.WebUI.Roles.ViewModels
 {
     public record RoleCreateViewModel
     {

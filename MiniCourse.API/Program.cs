@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using MiniCourse.Repository.Extensions;
 using MiniCourse.Service.Auths;
 using MiniCourse.Service.Extensions;
+using MiniCourse.Service.Members;
+using MiniCourse.Service.Roles;
 using MiniCourse.Service.Users;
 using System.Text;
 
@@ -19,6 +21,8 @@ builder.Services.AddMappingExt(builder.Configuration);
 builder.Services.AddEfCoreExt(builder.Configuration);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 
 
 builder.Services.AddAuthentication(opt =>

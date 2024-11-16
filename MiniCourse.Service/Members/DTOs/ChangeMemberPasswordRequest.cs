@@ -1,7 +1,8 @@
-﻿namespace MiniCourse.WebUI.ViewModels
+﻿namespace MiniCourse.Service.Members.DTOs
 {
-    public record ChangePasswordViewModel
+    public class ChangeMemberPasswordRequest
     {
+        public string UserId { get; set; } = default!;
         public string OldPassword { get; set; } = default!;
         public string Password { get; set; } = default!;
         public string RePassword { get; set; } = default!;
