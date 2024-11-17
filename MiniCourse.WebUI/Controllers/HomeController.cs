@@ -8,5 +8,12 @@ namespace MiniCourse.WebUI.Controllers
         {
             return View();
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        
     }
 }

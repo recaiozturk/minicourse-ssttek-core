@@ -13,20 +13,26 @@ namespace MiniCourse.WebUI.Handlers
         {
             if (!memoryCache.TryGetValue(TokenCacheKey, out object? token))
             {
-                var result = await authService.GetClientCredentialToken();
+                //clientler için credential
+                var resultCredential = await authService.GetClientCredentialToken();
 
-                if (result.AnyError)
+                var accecTokenResult = await authService.GetTokenAsync();
+
+                if(resultCredential.AnyError)
                 {
-                    throw new Exception(result.GetFirstError);
+                    throw new Exception(accecTokenResult.GetFirstError);
+                }
+                else if (accecTokenResult.AnyError)
+                {
+                    throw new Exception(accecTokenResult.GetFirstError);
                 }
 
-                token = result.Data!.AccessToken;
+                //tokenCredential = resultCredential.Data!.AccessToken;
+                token = accecTokenResult.Data!;
                 memoryCache.Set(TokenCacheKey, token, TimeSpan.FromMinutes(295));
             }
 
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("bearer", token!.ToString());
-
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token!.ToString());
 
             return await base.SendAsync(request, cancellationToken);
         }

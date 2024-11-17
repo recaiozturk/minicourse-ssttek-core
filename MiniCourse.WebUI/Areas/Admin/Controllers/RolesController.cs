@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Roles.ViewModels;
 using MiniCourse.WebUI.Users;
@@ -6,6 +7,7 @@ using MiniCourse.WebUI.Users;
 namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class RolesController(IRoleService roleService) : Controller
     {
         public async Task<IActionResult> Index()
@@ -58,6 +60,35 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
                 return View(model);
             }
             return RedirectToAction(nameof(Index));
+        }
+
+
+
+        public async Task<IActionResult> AssignRoleToUser(string userId)
+        {
+            var assignRoleModelResult = await roleService.GetAssignRoleModelAsync(userId); 
+            ViewBag.UserId = userId;
+            return View(assignRoleModelResult.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRoleToUser(string userId, List<AssignRoleToUserViewModel> requestList)
+        {
+
+            var AssignRoleToUserResult = await roleService.AssignRoleToUserAsync(userId, requestList);
+
+            if (AssignRoleToUserResult.AnyError)
+            {
+                foreach (var error in AssignRoleToUserResult.Errors!)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+
+                var assignRoleModelResult = await roleService.GetAssignRoleModelAsync(userId);
+                ViewBag.UserId = userId;
+                return View(assignRoleModelResult.Data);
+            }
+            return RedirectToAction("UserList","Users");
         }
 
         public async Task<IActionResult> RoleDelete(string roleId)

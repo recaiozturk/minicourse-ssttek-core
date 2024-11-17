@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\AdminModels\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="keys\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

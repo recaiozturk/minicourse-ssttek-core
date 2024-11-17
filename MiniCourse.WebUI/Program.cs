@@ -6,12 +6,15 @@ using MiniCourse.WebUI.Handlers;
 using MiniCourse.WebUI.Members;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
+
+//ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "keys")))
@@ -26,11 +29,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home/AccessDenied";
     });
 
-builder.Services.AddAuthorization();
+
+
 
 //builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddHttpClient<IAuthService,AuthService>(x =>
+builder.Services.AddScoped<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IAuthService, AuthService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 });
@@ -40,19 +46,16 @@ builder.Services.AddHttpClient<IUserService, UserService>(x =>
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();
 
+
 builder.Services.AddHttpClient<IRoleService, RoleService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
+}).AddHttpMessageHandler<ClientCredentialHandler>(); ;
 
 builder.Services.AddHttpClient<IMemberService, MemberService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddMemoryCache();
-
-builder.Services.AddScoped<ClientCredentialHandler>();
 
 
 builder.Services.AddControllersWithViews(options =>
@@ -63,6 +66,9 @@ builder.Services.AddControllersWithViews(options =>
 //ext ready
 builder.Services.AddFluentExt(builder.Configuration);
 
+builder.Services.AddMemoryCache();
+
+builder.Services.AddAuthorization();
 
 
 var app = builder.Build();

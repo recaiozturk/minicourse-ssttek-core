@@ -25,6 +25,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 
 
+
+
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -42,6 +44,7 @@ builder.Services.AddAuthentication(opt =>
         ValidateAudience = false
     };
 });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

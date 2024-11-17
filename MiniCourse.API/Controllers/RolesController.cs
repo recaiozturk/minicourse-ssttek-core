@@ -1,17 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Roles;
 using MiniCourse.Service.Roles.DTOs;
 using MiniCourse.Service.Users.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
-
+    [Authorize(Roles = "SuperAdmin")]
     public class RolesController(IRoleService roleService) : CustomControllerBase
-    {
-        [HttpGet("getroles")]
+    {      
+        [HttpGet("getroles")]        
         public async Task<IActionResult> GetRolesAsync()
         {
             var result = await roleService.GetRolesAsync();
+            return CreateObjectResult(result);
+        }
+
+        [HttpGet("getrolesbyuserid")]
+        public async Task<IActionResult> GetRolesByUserIdAsync(string userId)
+        {
+            var result = await roleService.GetRolesByUserIdAsync(userId);
             return CreateObjectResult(result);
         }
 
@@ -26,6 +34,13 @@ namespace MiniCourse.API.Controllers
         public async Task<IActionResult> CreateRoleAsync(CreateRoleRequest request)
         {
             var result = await roleService.CreateRoleAsync(request);
+            return CreateObjectResult(result);
+        }
+
+        [HttpPost("assignRoleToUser")]
+        public async Task<IActionResult> AssignRoleToUserAsync(string userId, List<AssignRoleToUserRequest> requestList)
+        {
+            var result = await roleService.AssignRoleToUserAsync(userId,requestList);
             return CreateObjectResult(result);
         }
 

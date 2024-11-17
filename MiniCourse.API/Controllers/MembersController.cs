@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Members;
 using MiniCourse.Service.Members.DTOs;
-using MiniCourse.Service.Roles.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
+    [Authorize]
     public class MembersController(IMemberService memberService) : CustomControllerBase
     {
         [HttpGet("getuserprofile")]

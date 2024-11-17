@@ -37,14 +37,28 @@
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed"
                             data-bs-toggle="collapse"
-                            data-bs-target="#role-collapse"
+                            data-bs-target="#orders-collapse"
                             aria-expanded="false">
-                        Roller
+                        Siparişler
                     </button>
-                    <div class="collapse" id="role-collapse">
+                    <div class="collapse" id="orders-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="link-dark rounded">Tüm Roller</a></li>
-                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="RoleCreate" class="link-dark rounded">Rol Ekle</a></li>
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="link-dark rounded">Kullanıcı Ekle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#courses-collapse"
+                            aria-expanded="false">
+                        Kurslar
+                    </button>
+                    <div class="collapse" id="courses-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
+                            <li><a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="link-dark rounded">Kullanıcı Ekle</a></li>
                         </ul>
                     </div>
                 </li>
@@ -62,24 +76,25 @@
                         </ul>
                     </div>
                 </li>
-
-                <li class="border-top my-3"></li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed"
                             data-bs-toggle="collapse"
-                            data-bs-target="#account-collapse"
+                            data-bs-target="#role-collapse"
                             aria-expanded="false">
-                        Account
+                        Roller
                     </button>
-                    <div class="collapse" id="account-collapse">
+                    <div class="collapse" id="role-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark rounded">New...</a></li>
-                            <li><a href="#" class="link-dark rounded">Profile</a></li>
-                            <li><a href="#" class="link-dark rounded">Settings</a></li>
-                            <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="link-dark rounded">Tüm Roller</a></li>
+                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="RoleCreate" class="link-dark rounded">Rol Ekle</a></li>
                         </ul>
                     </div>
                 </li>
+
+
+                <li class="border-top my-3"></li>
+
+                <li class="mb-1"> <a href="/" class="btn btn-outline-primary">Siteye Dön</a></li>  
             </ul>
         </div>
         <div class="b-example-divider"></div>

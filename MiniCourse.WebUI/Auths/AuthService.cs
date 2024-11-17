@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MiniCourse.WebUI.Auths.DTOs;
@@ -63,6 +62,25 @@ namespace MiniCourse.WebUI.Auths
             return ServiceResult.Success();
         }
 
+        public async Task<ServiceResult> SignUpAsync(SignUpViewModel viewModel)
+        {
+            var address = "/api/Auth/signup";
+
+            var response = await client.PostAsJsonAsync<SignUpViewModel>(address, viewModel);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = "Kaydınız Başarili şekilde oluştu";
+
+            return ServiceResult.Success();
+
+        }
+
         public async Task<ServiceResult<SignInResponse>> GetClientCredentialToken()
         {
             var clientCredentialTokenRequest = new ClientCredentialTokenRequest(
@@ -88,24 +106,13 @@ namespace MiniCourse.WebUI.Auths
             return ServiceResult<SignInResponse>.Success(signResponse!);
         }
 
-
-        public async Task<ServiceResult> SignUpAsync(SignUpViewModel viewModel)
+        public async Task<ServiceResult<string>> GetTokenAsync()
         {
-            var address = "/api/Auth/signup";
+            var authenticateResult = await httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var storedTokens = authenticateResult.Properties.GetTokens();
+            var accessToken = storedTokens.FirstOrDefault(t => t.Name == "access_token")?.Value;
 
-            var response = await client.PostAsJsonAsync<SignUpViewModel>(address, viewModel);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-                return ServiceResult.Fail(problemDetail!.Detail!);
-            }
-
-            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
-            tempData["SuccessMessage"] = "Kaydınız Başarili şekilde oluştu";
-
-            return ServiceResult.Success();
-
+            return ServiceResult<string>.Success(accessToken);
         }
     }
 }

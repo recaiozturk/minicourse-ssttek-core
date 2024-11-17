@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.WebUI.Users;
 using MiniCourse.WebUI.Users.ViewModels;
 
 namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class UsersController(IUserService userService) : Controller
     {
         [HttpGet]

@@ -7,7 +7,7 @@ using System.Net;
 
 namespace MiniCourse.Service.Roles
 {
-    public class RoleService(RoleManager<AppRole> roleManager):IRoleService
+    public class RoleService(RoleManager<AppRole> roleManager,UserManager<AppUser> userManager):IRoleService
     {
         public async Task<ApiServiceResult<List<RoleResponse>>> GetRolesAsync()
         {
@@ -17,6 +17,22 @@ namespace MiniCourse.Service.Roles
                 Id = x.Id.ToString(),
                 Name = x.Name!
             }).ToListAsync();
+
+            return ApiServiceResult<List<RoleResponse>>.Success(rolesResponseList, HttpStatusCode.OK);
+        }
+
+        public async Task<ApiServiceResult<List<RoleResponse>>> GetRolesByUserIdAsync(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            var userRoles = await userManager.GetRolesAsync(user!);
+
+            var rolesResponseList = new List<RoleResponse>();
+
+            foreach (var role in userRoles)
+            {
+                rolesResponseList.Add(new RoleResponse { Name=role});
+            }
 
             return ApiServiceResult<List<RoleResponse>>.Success(rolesResponseList, HttpStatusCode.OK);
         }
@@ -74,6 +90,31 @@ namespace MiniCourse.Service.Roles
 
             return ApiServiceResult.Success(HttpStatusCode.OK);
 
+        }
+
+        public async Task<ApiServiceResult> AssignRoleToUserAsync(string userId, List<AssignRoleToUserRequest> requestList)
+        {
+            var userToAssignRoles = (await userManager.FindByIdAsync(userId))!;
+
+            if(userToAssignRoles == null)
+            {
+                return ApiServiceResult.Fail("Kullanici bulunamadi", HttpStatusCode.NotFound);
+            }
+
+            foreach (var role in requestList)
+            {
+
+                if (role.Exist)
+                {
+                    await userManager.AddToRoleAsync(userToAssignRoles, role.Name);
+                }
+                else
+                {
+                    await userManager.RemoveFromRoleAsync(userToAssignRoles, role.Name);
+                }
+            }
+
+            return ApiServiceResult.Success(HttpStatusCode.OK);
         }
 
         public async Task<ApiServiceResult> DeleteRoleAsync(string roleId)

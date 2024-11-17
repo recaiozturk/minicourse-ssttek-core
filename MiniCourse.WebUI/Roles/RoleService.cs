@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Roles.DTOs;
 using MiniCourse.WebUI.Roles.ViewModels;
 using MiniCourse.WebUI.Shared;
 using MiniCourse.WebUI.Users.DTOs;
+using NuGet.Common;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using MiniCourse.WebUI.Auths;
+
 
 
 
@@ -38,6 +44,34 @@ namespace MiniCourse.WebUI.Users
         public async Task<ServiceResult<List<RoleViewModel>>> GetRolesAsync()
         {
             var address = "/api/Roles/getroles";
+            var response = await client.GetAsync(address);
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult<List<RoleViewModel>>.Fail(problemDetail!.Detail!);
+            }
+
+            var roles = await response.Content.ReadFromJsonAsync<List<RoleViewModel>>();
+
+            List<RoleViewModel> roleList = new();
+
+            if (roles != null)
+            {
+                roles.ForEach(x => roleList.Add(new RoleViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                }));
+            }
+
+            return ServiceResult<List<RoleViewModel>>.Success(roleList);
+
+        }
+        public async Task<ServiceResult<List<RoleViewModel>>> GetRolesByUserAsync(string userId)
+        {
+            var address = $"/api/Roles/getrolesbyuserid?userId={userId}";
 
             var response = await client.GetAsync(address);
 
@@ -123,6 +157,41 @@ namespace MiniCourse.WebUI.Users
             return ServiceResult.Success();
         }
 
+        public async Task<ServiceResult<List<AssignRoleToUserViewModel>>> GetAssignRoleModelAsync(string userId)
+        {
 
+            var roles = await GetRolesAsync();
+            var userRoles = await GetRolesByUserAsync(userId);
+
+            var userRoleNames = new HashSet<string>(userRoles.Data.Select(r => r.Name));
+
+            var roleViewModelList = roles.Data.Select(role => new AssignRoleToUserViewModel
+            {
+                Id = role.Id,
+                Name = role.Name,
+                Exist = userRoleNames.Contains(role.Name) 
+            }).ToList();
+
+            return ServiceResult<List<AssignRoleToUserViewModel>>.Success(roleViewModelList);
+
+        }
+        public async Task<ServiceResult> AssignRoleToUserAsync(string userId, List<AssignRoleToUserViewModel> requestList)
+        {
+            var address = $"/api/Roles/assignRoleToUser?userId={userId}";
+
+            var response = await client.PostAsJsonAsync(address, requestList);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = $" Rol Atama Başarili şekilde gerçekleşti";
+
+            return ServiceResult.Success();
+        }
+        
     }
 }
