@@ -10,6 +10,6 @@ namespace MiniCourse.Repository.Shared
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task<T> AddAsync(T entity);
         void Update(T entity);
-        void Remove(int id);
+        void Remove(T entity);
     }
 }

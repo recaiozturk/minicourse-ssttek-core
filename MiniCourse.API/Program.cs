@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MiniCourse.Repository.Extensions;
 using MiniCourse.Service.Auths;
+using MiniCourse.Service.Categories;
 using MiniCourse.Service.Extensions;
 using MiniCourse.Service.Members;
 using MiniCourse.Service.Roles;
@@ -19,10 +20,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMappingExt(builder.Configuration);
 
 builder.Services.AddEfCoreExt(builder.Configuration);
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IMemberService, MemberService>();
+
+builder.Services.AddRepoExt(builder.Configuration);
+builder.Services.AddApiServicesExt(builder.Configuration);
+
+
+//builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IRoleService, RoleService>();
+//builder.Services.AddScoped<IMemberService, MemberService>();
+//builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
 
 
 

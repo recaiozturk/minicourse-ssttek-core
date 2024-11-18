@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\AdminModels\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Courses\DTOs\" />
+    <Folder Include="Courses\Validators\" />
     <Folder Include="keys\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />

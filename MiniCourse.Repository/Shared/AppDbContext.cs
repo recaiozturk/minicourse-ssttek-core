@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MiniCourse.Repository.Categories;
+using MiniCourse.Repository.Courses;
+using MiniCourse.Repository.OrderDetails;
+using MiniCourse.Repository.Orders;
+using MiniCourse.Repository.Payments;
 using MiniCourse.Repository.Users;
 
 namespace MiniCourse.Repository.Shared
 {
     public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser,AppRole,Guid>(options)
     {
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

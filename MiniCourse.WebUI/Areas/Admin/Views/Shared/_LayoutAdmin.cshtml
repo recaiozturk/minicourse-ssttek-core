@@ -65,6 +65,20 @@
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed"
                             data-bs-toggle="collapse"
+                            data-bs-target="#categories-collapse"
+                            aria-expanded="false">
+                        Kategoriler
+                    </button>
+                    <div class="collapse" id="categories-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="link-dark rounded">Tüm Kategoriler</a></li>
+                            <li><a asp-area="Admin" asp-controller="Categories" asp-action="CategoryCreate" class="link-dark rounded">Kategori Ekle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed"
+                            data-bs-toggle="collapse"
                             data-bs-target="#users-collapse"
                             aria-expanded="false">
                         Kullanıcılar
@@ -94,7 +108,7 @@
 
                 <li class="border-top my-3"></li>
 
-                <li class="mb-1"> <a href="/" class="btn btn-outline-primary">Siteye Dön</a></li>  
+                <li class="mb-1"> <a href="/" class="btn btn-outline-primary">Siteye Dön</a></li>
             </ul>
         </div>
         <div class="b-example-divider"></div>

@@ -34,9 +34,9 @@ namespace MiniCourse.Repository.Shared
             return await _dbSet.FindAsync(id);
         }
 
-        public async void Remove(int id)
+        public async void Remove(T entity)
         {
-            _dbSet.Remove(await GetByIdAsync(id));
+            _dbSet.Remove(entity);
         }
 
         public void Update(T entity)

@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using MiniCourse.WebUI.Auths;
+using MiniCourse.WebUI.Categories;
+using MiniCourse.WebUI.Courses;
 using MiniCourse.WebUI.Extensions.Extensions;
 using MiniCourse.WebUI.Handlers;
 using MiniCourse.WebUI.Members;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,9 +32,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 
 
-
-//builder.Services.AddScoped<IAuthService, AuthService>();
-
 builder.Services.AddScoped<ClientCredentialHandler>();
 
 builder.Services.AddHttpClient<IAuthService, AuthService>(x =>
@@ -53,6 +51,16 @@ builder.Services.AddHttpClient<IRoleService, RoleService>(x =>
 }).AddHttpMessageHandler<ClientCredentialHandler>(); ;
 
 builder.Services.AddHttpClient<IMemberService, MemberService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<ICategoryService, CategoryService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<ICourseService, CourseService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();
