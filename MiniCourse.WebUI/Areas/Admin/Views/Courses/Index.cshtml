@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<CourseViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Kurslar</h1>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <p>@TempData["SuccessMessage"]</p>
+                </div>
+            }
+
+            <a asp-area="Admin" asp-controller="Courses" asp-action="CourseCreate" class="btn btn-primary mt-3">Kurs Ekle</a>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Kurs Id</th>
+                        <th scope="col">Başlık</th>
+                        <th scope="col">Açıklama</th>
+                        <th scope="col">Fiyat</th>
+                        <th scope="col">Kategori</th>
+                        <th class="text-end" scope="col">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>@course.Id</td>
+                            <td>@course.Title</td>
+                            <td>@course.Description</td>
+                            <td>@course.Price.ToString("C")</td>
+                            <td>@course.CategoryId</td>
+                            <td class="text-end">
+                                <a asp-area="Admin" asp-controller="Courses" asp-action="CourseUpdate" asp-route-courseId="@course.Id" class="btn btn-sm btn-warning mx-1">Güncelle</a>
+                                <a asp-area="Admin" asp-controller="Courses" asp-action="CourseDelete" asp-route-courseId="@course.Id" class="btn btn-sm btn-danger mx-1">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

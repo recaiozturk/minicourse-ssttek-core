@@ -1,0 +1,11 @@
+﻿@model List<MiniCourse.WebUI.Categories.ViewModels.CategoryViewModel>
+
+<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+    @foreach (var cat in Model)
+    {
+        <li><a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-catId="@cat.Id">@cat.Name</a></li>
+    }
+
+</ul>
+

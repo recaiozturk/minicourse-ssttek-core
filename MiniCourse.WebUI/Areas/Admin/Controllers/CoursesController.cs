@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using MiniCourse.WebUI.Categories;
 using MiniCourse.WebUI.Courses;
 using MiniCourse.WebUI.Courses.ViewModels;
 
@@ -8,7 +9,7 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "SuperAdmin")]
-    public class CoursesController(ICourseService courseService) : Controller
+    public class CoursesController(ICourseService courseService,ICategoryService categoryService) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -17,10 +18,10 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
         }
 
         // Kurs Oluşturma - GET
-        public IActionResult CourseCreate()
+        public async Task<IActionResult> CourseCreate()
         {
-            //var categories = _categoryService.GetAllCategories(); 
-            //ViewBag.Categories = categories;
+            var categories = await categoryService.GetCategoriesAsync(); 
+            ViewBag.Categories = categories.Data;
             return View();
         }
 
@@ -28,6 +29,7 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CourseCreate(CourseCreateViewModel model)
         {
+
             var courseCreateResult = await courseService.CreateCourseAsync(model);
 
             if (courseCreateResult.AnyError)
@@ -50,7 +52,7 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Categories =  (await categoryService.GetCategoriesAsync()).Data;
             return View(courseResult.Data);
         }
 

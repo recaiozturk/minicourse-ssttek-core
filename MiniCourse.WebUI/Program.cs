@@ -11,6 +11,8 @@ using MiniCourse.WebUI.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();

@@ -1,13 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
+using MiniCourse.WebUI.Courses;
 
 namespace MiniCourse.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ICourseService courseService) : Controller
     {
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public async Task<IActionResult> Index(int catId=0)
         {
-            return View();
+            var coursesPagedResult = await courseService.PrepareHomeListPageAsync(catId);
+            return View(coursesPagedResult.Data);
         }
+
+
 
         public IActionResult AccessDenied()
         {

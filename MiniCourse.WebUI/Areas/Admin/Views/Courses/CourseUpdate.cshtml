@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "CourseUpdate";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    string selectStr = "";
+}
+
+@model CourseUpdateViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Kurs Güncelleme</h2>
+            @if (ViewData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    @ViewData["SuccessMessage"]
+                </div>
+            }
+            <form asp-area="Admin" asp-action="CourseUpdate" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" type="number" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">Kategori Seçin</option>
+
+                        @foreach (var category in ViewBag.Categories as IEnumerable<CategoryViewModel>)
+                        {
+
+                            selectStr = category.Id == Model.CategoryId ? "selected" : "";
+
+                            <!option value="@category.Id" @(category.Id == Model.CategoryId ? "selected" : "")>@category.Name</!option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                @if ((!string.IsNullOrEmpty(Model.CourseImage)))
+                {
+                    <div class="form-group mt-3">
+                        <label class="control-label">Mevcut Görsel:</label>
+                        <div>
+                            <img src="~/img/@Model.CourseImage" alt="Mevcut Görsel" class="img-thumbnail" style="max-height: 200px;" />
+                        </div>
+
+                    </div>
+                }
+
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Güncelle" class="btn btn-primary" />
+                </div>
+            </form>
+
+            <div class="mt-3">
+                <a asp-area="Admin" asp-controller="Courses" asp-action="Index">Kurs listesine geri dön</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

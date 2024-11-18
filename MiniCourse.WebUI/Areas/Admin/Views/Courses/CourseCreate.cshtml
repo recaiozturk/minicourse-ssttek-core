@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "CourseCreate";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CourseCreateViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Kurs Oluşturma</h2>
+            @if (ViewData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    @ViewData["SuccessMessage"]
+                </div>
+            }
+            <form asp-area="Admin" asp-action="CourseCreate" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" type="number" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">Kategori Seçin</option>
+                        @foreach (var category in ViewBag.Categories as IEnumerable<CategoryViewModel>)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Oluştur" class="btn btn-primary" />
+                </div>
+            </form>
+
+            <div class="mt-3">
+                <a asp-area="Admin" asp-controller="Courses" asp-action="Index">Kurs listesine geri dön</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
