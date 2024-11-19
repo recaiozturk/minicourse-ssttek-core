@@ -5,14 +5,9 @@ namespace MiniCourse.WebUI.Controllers
 {
     public class HomeController(ICourseService courseService) : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        public async Task<IActionResult> Index(int catId=0)
+        public async Task<IActionResult> Index()
         {
-            var coursesPagedResult = await courseService.PrepareHomeListPageAsync(catId);
+            var coursesPagedResult = await courseService.PrepareHomeListPageAsync();
             return View(coursesPagedResult.Data);
         }
 

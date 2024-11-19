@@ -7,7 +7,7 @@
 @model CoursesPagedModel
 
 <div class="container px-4 px-lg-5 mt-5">
-    <h1 class="mb-3 text-center">Tüm Kurslar</h1>
+    <h1 class="mb-3 text-center">@Model.CourseTitle</h1>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
         @if (Model.Courses.Any())
@@ -16,13 +16,14 @@
             {
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top" src="~/img/@course.CourseImage" alt="..." />
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <h5 class="fw-bolder">@course.Title</h5>
+                                <a asp-controller="Courses" asp-action="Detail" asp-route-courseId="@course.Id"><h5 class="fw-bolder">@course.Title</h5></a>
                                 @course.Price  ₺
                             </div>
                         </div>
+                        <p class="text-center">@course.Category.Name</p>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Sepete Ekle</a></div>
                         </div>

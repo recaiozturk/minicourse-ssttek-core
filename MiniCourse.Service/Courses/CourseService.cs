@@ -19,17 +19,40 @@ namespace MiniCourse.Service.Courses
             return ApiServiceResult<List<CourseResponse>>.Success(courseResponses, HttpStatusCode.OK);
         }
 
-        public async Task<ApiServiceResult<CoursesPagedResponse>> GetCoursesPagedAsync(int pageNumber, int pageSize)
+        public async Task<ApiServiceResult<List<CourseResponse>>> GetCoursesWithCategoryAsync()
         {
-            var coursesAll = await courseRepository.GetCoursesWithCategoryQuaaryble().ToListAsync();
+            var courses = await courseRepository.GetCoursesWithCategoryQuaaryble().ToListAsync();
 
-            var coursesPaged = coursesAll.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var courseResponses = mapper.Map<List<CourseResponse>>(courses);
+
+            return ApiServiceResult<List<CourseResponse>>.Success(courseResponses, HttpStatusCode.OK);
+        }
+
+        public async Task<ApiServiceResult<CoursesPagedResponse>> GetCoursesPagedAsync(int pageNumber, int pageSize,int catId)
+        {
+
+            IQueryable<Course> query = courseRepository.GetCoursesWithCategoryQuaaryble();
+
+            if (catId != 0)
+                query = query.Where(c => c.CategoryId == catId);
+
+            var courses = await query.ToListAsync();
+
+            var coursesPaged = courses.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
             var courseResponses = mapper.Map<List<CourseResponse>>(coursesPaged);
 
             CoursesPagedResponse response = new CoursesPagedResponse();
             response.Courses = courseResponses;
-            response.TotalPages =  (int)Math.Ceiling(coursesAll.Count() / (double)pageSize); 
+            response.TotalPages =  (int)Math.Ceiling(courses.Count() / (double)pageSize);
+
+            string coursesTitle = "";
+            if (catId == 0)
+                coursesTitle = "Tüm Kurslar";
+            else
+                coursesTitle = response.Courses.First().Category.Name + " kategorisindeki ürünler";
+
+            response.CourseTitle = coursesTitle;
 
             return ApiServiceResult<CoursesPagedResponse>.Success(response, HttpStatusCode.OK);
         }
@@ -58,6 +81,21 @@ namespace MiniCourse.Service.Courses
 
             return ApiServiceResult<CourseResponse>.Success(courseResponse, HttpStatusCode.OK);
         }
+        public async Task<ApiServiceResult<CourseResponse>> GetCourseWithCategoryAsync(int courseId)
+        {
+            var course = await courseRepository.GetByIdWithCategoryAsync(courseId);
+
+            if (course == null)
+            {
+                return ApiServiceResult<CourseResponse>.Fail("Kurs bulunamadı", HttpStatusCode.NotFound);
+            }
+
+            var courseResponse = mapper.Map<CourseResponse>(course);
+
+            return ApiServiceResult<CourseResponse>.Success(courseResponse, HttpStatusCode.OK);
+        }
+
+        
 
         public async Task<ApiServiceResult<CreateCourseResponse>> CreateCourseAsync(CreateCourseRequest request)
         {

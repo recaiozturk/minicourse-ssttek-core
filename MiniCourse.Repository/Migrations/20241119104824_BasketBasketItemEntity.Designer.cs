@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniCourse.Repository.Shared;
 
@@ -11,9 +12,11 @@ using MiniCourse.Repository.Shared;
 namespace MiniCourse.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241119104824_BasketBasketItemEntity")]
+    partial class BasketBasketItemEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +111,8 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("945bc75c-cc6c-45c8-a79d-070c30ab0ecc"),
-                            RoleId = new Guid("46184609-7354-4c75-a147-57a585bcc693")
+                            UserId = new Guid("05152bb8-3a38-408a-8ca5-fd25c272b7c9"),
+                            RoleId = new Guid("99949c57-274c-4b3d-91c5-22c4426368ac")
                         });
                 });
 
@@ -149,7 +152,7 @@ namespace MiniCourse.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Baskets");
+                    b.ToTable("Basket");
                 });
 
             modelBuilder.Entity("MiniCourse.Repository.Baskets.BasketItem", b =>
@@ -178,7 +181,7 @@ namespace MiniCourse.Repository.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("BasketItems");
+                    b.ToTable("BasketItem");
                 });
 
             modelBuilder.Entity("MiniCourse.Repository.Categories.Category", b =>
@@ -349,15 +352,15 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("46184609-7354-4c75-a147-57a585bcc693"),
-                            ConcurrencyStamp = "46184609-7354-4c75-a147-57a585bcc693",
+                            Id = new Guid("99949c57-274c-4b3d-91c5-22c4426368ac"),
+                            ConcurrencyStamp = "99949c57-274c-4b3d-91c5-22c4426368ac",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("f5e98e94-98a6-4b6f-9d17-ebc4fd70369c"),
-                            ConcurrencyStamp = "f5e98e94-98a6-4b6f-9d17-ebc4fd70369c",
+                            Id = new Guid("ff305d7a-b0d8-4608-b9f4-6034a695d333"),
+                            ConcurrencyStamp = "ff305d7a-b0d8-4608-b9f4-6034a695d333",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -437,17 +440,17 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("945bc75c-cc6c-45c8-a79d-070c30ab0ecc"),
+                            Id = new Guid("05152bb8-3a38-408a-8ca5-fd25c272b7c9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d42f2b5-c9ec-4a2f-a5af-b346522df368",
+                            ConcurrencyStamp = "2448be1b-789f-4afd-a3c8-ae63974fac9d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG20mfjXotLBR1uTPVPtoCDnHaCEfXI4aFYo0bq6CPuNFpfOjz1V4IlkwwmoxFZMEg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA7Y82XE8DnaDiPENtGzL9St1vN8SreG0YPvqusLNawKf5K7JwmDRpZkJCkqddJ15g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4e10fa9e-1ba7-4f22-a82d-faab7ba476c2",
+                            SecurityStamp = "09b45a12-2772-4699-8720-453e70a12b47",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

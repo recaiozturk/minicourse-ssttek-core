@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniCourse.Service.Auths;
+using MiniCourse.Service.Baskets;
 using MiniCourse.Service.Categories;
 using MiniCourse.Service.Courses;
 using MiniCourse.Service.Members;
@@ -19,6 +20,7 @@ namespace MiniCourse.Service.Extensions
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IBasketService, BasketService>();
 
             return services;
         }

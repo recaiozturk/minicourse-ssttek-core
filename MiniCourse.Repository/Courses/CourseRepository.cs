@@ -13,7 +13,7 @@ namespace MiniCourse.Repository.Courses
 
         public IQueryable<Course> GetCoursesWithCategoryQuaaryble()
         {
-            return context.Courses.AsNoTracking().AsQueryable();
+            return context.Courses.Include(b => b.Category).AsNoTracking().AsQueryable();
         }
     }
 }

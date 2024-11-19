@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model CourseUpdateViewModel
+
+    <style>
+        .product-image {
+            /*max-height: 400px;*/
+            width: -webkit-fill-available;
+            object-fit: cover;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+            .thumbnail:hover, .thumbnail.active {
+                opacity: 1;
+            }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <img src="~/img/@Model.CourseImage" alt="Product" class="img-fluid rounded mb-3 product-image" id="mainImage">
+                <div class="d-flex justify-content-around">
+                    <img src="~/img/@Model.CourseImage" alt="Thumbnail 1" class="thumbnail rounded active" onclick="changeImage(event, this.src)">
+                    <img src="~/img/@Model.CourseImage" alt="Thumbnail 2" class="thumbnail rounded" onclick="changeImage(event, this.src)">
+                    <img src="~/img/@Model.CourseImage" alt="Thumbnail 3" class="thumbnail rounded" onclick="changeImage(event, this.src)">
+                    <img src="~/img/@Model.CourseImage" alt="Thumbnail 4" class="thumbnail rounded" onclick="changeImage(event, this.src)">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="mb-3">@Model.Title</h2>
+                <p class="text-muted mb-4">Kategori: @Model.Category.Name</p>
+                <div class="mb-3">
+                    <span class="h4 me-2">@Model.Price ₺</span>
+                </div>
+
+                <p class="mb-4">
+                    @Model.Description
+                </p>
+                <div class="mb-4">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;">
+                </div>
+                <a class="btn btn-outline-dark btn-lg  mb-3 me-2" href="#">Sepete Ekle</a>
+                @*<button class="btn btn-primary btn-lg mb-3 me-2">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                </button>*@
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage(event, src) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+
+@*<h1>@Model.Title</h1>
+
+<h3>@Model.Category.Name</h3>
+<h3>@Model.Description</h3>
+<h3>@Model.Price</h3>
+<h3>Detail</h3>
+
+<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Sepete Ekle</a></div>*@
+
+
+
+

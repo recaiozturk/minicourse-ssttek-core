@@ -13,10 +13,17 @@ namespace MiniCourse.API.Controllers
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcoursespaged")]
-        public async Task<IActionResult> GetCoursesPagedAsync(int pageNumber,int pageSize)
+        [HttpGet("getcourseswithcategory")]
+        public async Task<IActionResult> GetCoursesWithCategory()
         {
-            var result = await courseService.GetCoursesPagedAsync(pageNumber, pageSize);
+            var result = await courseService.GetCoursesWithCategoryAsync();
+            return CreateObjectResult(result);
+        }
+
+        [HttpGet("getcoursespaged")]
+        public async Task<IActionResult> GetCoursesPagedAsync(int pageNumber,int pageSize, int catId)
+        {
+            var result = await courseService.GetCoursesPagedAsync(pageNumber, pageSize, catId);
             return CreateObjectResult(result);
         }
 
@@ -34,6 +41,13 @@ namespace MiniCourse.API.Controllers
             return CreateObjectResult(result);
         }
 
+        //[HttpGet("getcoursewithcategory")]
+        //public async Task<IActionResult> GetCourseWithCategoryAsync(int courseId)
+        //{
+        //    var result = await courseService.GetCourseWithCategoryAsync(courseId);
+        //    return CreateObjectResult(result);
+        //}
+        
         [HttpPost("createcourse")]
         public async Task<IActionResult> CreateCourseAsync(CreateCourseRequest request)
         {

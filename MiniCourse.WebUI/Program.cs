@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using MiniCourse.WebUI.Auths;
+using MiniCourse.WebUI.Baskets;
 using MiniCourse.WebUI.Categories;
 using MiniCourse.WebUI.Courses;
 using MiniCourse.WebUI.Extensions.Extensions;
@@ -63,6 +64,11 @@ builder.Services.AddHttpClient<ICategoryService, CategoryService>(x =>
 }).AddHttpMessageHandler<ClientCredentialHandler>();
 
 builder.Services.AddHttpClient<ICourseService, CourseService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IBasketService, BasketService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();

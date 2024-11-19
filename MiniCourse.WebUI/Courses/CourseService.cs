@@ -10,6 +10,35 @@ namespace MiniCourse.WebUI.Courses
 {
     public class CourseService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) : ICourseService
     {
+
+
+        public async Task<ServiceResult<CourseResponse>> GetCourseWithCategoryAsync(int courseId)
+        {
+            var address = $"/api/Courses/getcoursewithcategory?courseId={courseId}";
+
+            var response = await client.GetAsync(address);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult<CourseResponse>.Fail(problemDetail!.Detail!);
+            }
+
+            var course = await response.Content.ReadFromJsonAsync<CourseResponse>();
+
+            //var courseViewModel = new CourseUpdateViewModel
+            //{
+            //    Title = course.Title,
+            //    Description = course.Description,
+            //    Price = course.Price,
+            //    CategoryId = course.CategoryId,
+            //    Id = course.Id,
+            //    CourseImage = course.CourseImage
+            //};
+
+            return ServiceResult<CourseResponse>.Success(course);
+        }
+
         public async Task<ServiceResult<CourseUpdateViewModel>> GetCourseAsync(int courseId)
         {
             var address = $"/api/Courses/getcourse?courseId={courseId}";
@@ -31,7 +60,9 @@ namespace MiniCourse.WebUI.Courses
                 Price = course.Price,
                 CategoryId = course.CategoryId,
                 Id = course.Id,
-                CourseImage=course.CourseImage
+                CourseImage=course.CourseImage,
+                Category=course.Category
+                
             };
 
             return ServiceResult<CourseUpdateViewModel>.Success(courseViewModel);
@@ -53,9 +84,9 @@ namespace MiniCourse.WebUI.Courses
             return ServiceResult<List<CourseViewModel>>.Success(courses ?? new List<CourseViewModel>());
         }
 
-        public async Task<ServiceResult<CoursesPagedModel>> PrepareListPageAsync(int pageNumber, int pageSize)
+        public async Task<ServiceResult<CoursesPagedModel>> PrepareListPageAsync(int pageNumber, int pageSize,int catId)
         {
-            var address =  $"/api/Courses/getcoursespaged?pageNumber={pageNumber}&pageSize={pageSize}";
+            var address =  $"/api/Courses/getcoursespaged?pageNumber={pageNumber}&pageSize={pageSize}&catId={catId}";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -70,13 +101,14 @@ namespace MiniCourse.WebUI.Courses
 
             coursesPagedModel.Courses = coursesPagedResponse.Courses;
             coursesPagedModel.TotalPages=coursesPagedResponse.TotalPages;
+            coursesPagedModel.CourseTitle=coursesPagedResponse.CourseTitle;
 
             return ServiceResult<CoursesPagedModel>.Success(coursesPagedModel);
         }
 
-        public async Task<ServiceResult<HomeViewModel>> PrepareHomeListPageAsync(int catId)
+        public async Task<ServiceResult<HomeViewModel>> PrepareHomeListPageAsync()
         {
-            var address = $"/api/Courses/getcoursesbycategory?catId={catId}";
+            var address = $"/api/Courses/getcourseswithcategory";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -85,10 +117,10 @@ namespace MiniCourse.WebUI.Courses
                 return ServiceResult<HomeViewModel>.Fail(problemDetail!.Detail!);
             }
 
-            var coursesByCat = await response.Content.ReadFromJsonAsync<List<CourseViewModel>>();
+            var courses = await response.Content.ReadFromJsonAsync<List<CourseViewModel>>();
 
             HomeViewModel homeModel= new HomeViewModel();
-            homeModel.HomeCourses = coursesByCat;
+            homeModel.HomeCourses = courses;
 
             return ServiceResult<HomeViewModel>.Success(homeModel);
         }

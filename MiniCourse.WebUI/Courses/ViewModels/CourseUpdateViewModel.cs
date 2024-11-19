@@ -1,4 +1,6 @@
-﻿namespace MiniCourse.WebUI.Courses.ViewModels
+﻿using MiniCourse.Repository.Categories;
+
+namespace MiniCourse.WebUI.Courses.ViewModels
 {
     public record CourseUpdateViewModel
     {
@@ -7,6 +9,8 @@
         public string Description { get; set; } =default!;
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
 
         public string? CourseImage { get; set; }
         public IFormFile? ImageFile { get; set; }

@@ -16,19 +16,20 @@ namespace MiniCourse.WebUI.Handlers
                 //clientler için credential
                 var resultCredential = await authService.GetClientCredentialToken();
 
-                var accecTokenResult = await authService.GetTokenAsync();
+                //var accecTokenResult = await authService.GetTokenAsync();
 
-                if(resultCredential.AnyError)
-                {
-                    throw new Exception(accecTokenResult.GetFirstError);
-                }
-                else if (accecTokenResult.AnyError)
-                {
-                    throw new Exception(accecTokenResult.GetFirstError);
-                }
+                //if(resultCredential.AnyError)
+                //{
+                //    throw new Exception(accecTokenResult.GetFirstError);
+                //}
+                //else if (accecTokenResult.AnyError)
+                //{
+                //    throw new Exception(accecTokenResult.GetFirstError);
+                //}
 
                 //tokenCredential = resultCredential.Data!.AccessToken;
-                token = accecTokenResult.Data!;
+                //token = accecTokenResult.Data!;
+                token = resultCredential.Data.AccessToken!;
                 memoryCache.Set(TokenCacheKey, token, TimeSpan.FromMinutes(295));
             }
 

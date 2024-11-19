@@ -1,4 +1,5 @@
-﻿using MiniCourse.Repository.OrderDetails;
+﻿using MiniCourse.Repository.Baskets;
+using MiniCourse.Repository.OrderDetails;
 
 namespace MiniCourse.Repository.Orders
 {
@@ -8,5 +9,8 @@ namespace MiniCourse.Repository.Orders
         public Guid UserId { get; set; } 
         public DateTime OrderDate { get; set; }
         public List<OrderDetail> OrderDetails { get; set; } = default!;
+        public decimal TotalPrice { get; set; } 
+        public int? BasketId { get; set; } 
+        public Basket? Basket { get; set; } 
     }
 }

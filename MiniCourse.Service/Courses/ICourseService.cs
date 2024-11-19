@@ -7,7 +7,9 @@ namespace MiniCourse.Service.Courses
     public interface ICourseService
     {
         Task<ApiServiceResult<List<CourseResponse>>> GetCoursesAsync();
-        Task<ApiServiceResult<CoursesPagedResponse>> GetCoursesPagedAsync(int pageNumber, int pageSize);
+
+        Task<ApiServiceResult<List<CourseResponse>>> GetCoursesWithCategoryAsync();
+        Task<ApiServiceResult<CoursesPagedResponse>> GetCoursesPagedAsync(int pageNumber, int pageSize, int catId);
         Task<ApiServiceResult<List<CourseResponse>>> GetCoursesByCategoryAsync(int catId);
         Task<ApiServiceResult<CourseResponse>> GetCourseAsync(int courseId);
 

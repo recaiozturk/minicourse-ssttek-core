@@ -108,6 +108,7 @@ namespace MiniCourse.WebUI.Auths
 
         public async Task<ServiceResult<string>> GetTokenAsync()
         {
+            //if(httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             var authenticateResult = await httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             var storedTokens = authenticateResult.Properties.GetTokens();
             var accessToken = storedTokens.FirstOrDefault(t => t.Name == "access_token")?.Value;

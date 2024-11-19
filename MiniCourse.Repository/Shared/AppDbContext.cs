@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MiniCourse.Repository.Baskets;
 using MiniCourse.Repository.Categories;
 using MiniCourse.Repository.Courses;
 using MiniCourse.Repository.OrderDetails;
@@ -17,6 +18,8 @@ namespace MiniCourse.Repository.Shared
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
