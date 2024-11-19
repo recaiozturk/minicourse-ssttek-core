@@ -15,7 +15,7 @@ namespace MiniCourse.Repository.Baskets
 
         public async Task AddItemToBasketAsync(BasketItem basketItem)
         {
-            await _context.BasketItems.AddAsync(basketItem);
+            await context.BasketItems.AddAsync(basketItem);
         }
     }
 }

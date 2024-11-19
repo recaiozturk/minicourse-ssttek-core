@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Baskets;
 using MiniCourse.Service.Baskets.DTOs;
-using MiniCourse.Service.Courses.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
@@ -13,5 +12,28 @@ namespace MiniCourse.API.Controllers
             var result = await basketService.AddToBasketAsync(request);
             return CreateObjectResult(result);
         }
+
+        [HttpGet("get-basket")]
+        public async Task<IActionResult> GetBasketByUserIdAsync(string userId)
+        {
+            var result = await basketService.GetBasketByUserIdAsync(userId);
+            return CreateObjectResult(result);
+        }
+
+        [HttpGet("get-basket-detail")]
+        public async Task<IActionResult> GetBasketDetailAsync(string userId)
+        {
+            var result = await basketService.GetBasketDetailAsync(userId);
+            return CreateObjectResult(result);
+        }
+
+        [HttpDelete("remove-from-basket")]
+        public async Task<IActionResult> RemoveItemFromBasketAsync(string userId,int courseId)
+        {
+            var result = await basketService.RemoveItemFromBasketAsync(userId,courseId);
+            return CreateObjectResult(result);
+        }
+
+
     }
 }

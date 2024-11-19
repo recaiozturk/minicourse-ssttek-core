@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MiniCourse.Repository.Courses;
 using MiniCourse.WebUI.Baskets;
 
 namespace MiniCourse.WebUI.Controllers
 {
     public class BasketController(IBasketService basketService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await basketService.GetBasketDetailAsync();
+
+            if (result.AnyError)
+                return RedirectToAction(nameof(Index), "Home");
+
+            return View(result.Data);
         }
 
         [HttpPost]
@@ -15,6 +21,13 @@ namespace MiniCourse.WebUI.Controllers
         {
             var result = await basketService.AddCourseToBasketAsync(courseId, quantity);
             return Json(result.Data);
+        }
+
+
+        public async Task<IActionResult> RemoveItemFromBasket(int courseId)
+        {
+            var result = await basketService.RemoveItemFromBasketAsync(courseId);
+            return RedirectToAction(nameof(Index));
         }
 
 

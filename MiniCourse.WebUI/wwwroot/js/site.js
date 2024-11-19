@@ -23,6 +23,7 @@ $(document).on('click', '.add-to-basket', function () {
             console.log(response)
             if (response.isValid) {
                 alert(response.message);
+                $("#basket-count").text(response.data.basketItemsCount);
             } else {
                 alert(response.message);
             }
