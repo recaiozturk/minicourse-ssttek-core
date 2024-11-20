@@ -17,7 +17,8 @@ namespace MiniCourse.WebUI.ViewComponents
                 return View(basketCount);
 
             // Sepetteki toplam ürün sayısını hesapla
-            basketCount = basketRequest.Data?.Items.Sum(item => item.Quantity) ?? 0;
+            /*basketCount = basketRequest.Data?.Items.Sum(item => item.Quantity) ?? 0*/;
+            basketCount = basketRequest.Data.Items.Count();
 
             // Sayıyı View ile dön
             return View(basketCount);

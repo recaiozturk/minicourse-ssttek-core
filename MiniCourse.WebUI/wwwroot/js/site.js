@@ -1,19 +1,21 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/basketHub")
+    .build();
 
-// Write your JavaScript code.
+connection.start()
+    .then(() => console.log("SignalR bağlantısı kuruldu."))
+    .catch(err => console.error("SignalR bağlantısı başarısız:", err));
 
-
+// Sepet güncellemelerini dinleyin
+connection.on("ReceiveBasketItemCount", function (itemCount) {
+    console.log("Sepet güncellendi:", itemCount);
+    $("#basket-count").text(itemCount); 
+});
 
 $(document).on('click', '.add-to-basket', function () {
     const courseId = $(this).data('course-id');
     console.log(courseId)
-
-
-    //if (!userId) {
-    //    alert("Sepete eklemek için giriş yapmalısınız!");
-    //    return;
-    //}
 
     $.ajax({
         url: '/Basket/AddToBasket', 
@@ -23,7 +25,6 @@ $(document).on('click', '.add-to-basket', function () {
             console.log(response)
             if (response.isValid) {
                 alert(response.message);
-                $("#basket-count").text(response.data.basketItemsCount);
             } else {
                 alert(response.message);
             }

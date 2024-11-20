@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Repository.Courses;
 using MiniCourse.WebUI.Baskets;
+using System.Security.Claims;
 
 namespace MiniCourse.WebUI.Controllers
 {
@@ -29,7 +30,5 @@ namespace MiniCourse.WebUI.Controllers
             var result = await basketService.RemoveItemFromBasketAsync(courseId);
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

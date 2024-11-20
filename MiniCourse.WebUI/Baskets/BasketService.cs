@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.SignalR;
 using MiniCourse.WebUI.Baskets.DTOs;
 using MiniCourse.WebUI.Baskets.ViewModels;
-using MiniCourse.WebUI.Categories.ViewModels;
+using MiniCourse.WebUI.Hubs;
 using MiniCourse.WebUI.Shared;
 using System.Security.Claims;
 
 namespace MiniCourse.WebUI.Baskets
 {
-    public class BasketService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) :IBasketService
+    public class BasketService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IHubContext<BasketHub> hubContext, IConfiguration configuration) :IBasketService
     {
         public async Task<ServiceResult<CustomJsonModel>> AddCourseToBasketAsync(int courseId, int quantity)
         {
@@ -46,6 +47,8 @@ namespace MiniCourse.WebUI.Baskets
             jsonModel.Message = "Kurs Sepete Eklendi";
             jsonModel.IsValid = true;
             jsonModel.Data= addBasketResponse;
+
+            await hubContext.Clients.User(userId).SendAsync("ReceiveBasketItemCount", await GetBasketItemCountAsync());
 
             return ServiceResult<CustomJsonModel>.Success(jsonModel);
         }
@@ -109,10 +112,27 @@ namespace MiniCourse.WebUI.Baskets
                 return ServiceResult.Fail(problemDetail!.Detail!);
             }
 
+            await hubContext.Clients.User(userId).SendAsync("ReceiveBasketItemCount", await GetBasketItemCountAsync());
+
             var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
             tempData["SuccessMessage"] = $"Ürün sepetten çıkarıldı";
 
             return ServiceResult.Success();
+        }
+
+        public async Task<int> GetBasketItemCountAsync()
+        {
+            CustomJsonModel jsonModel = new CustomJsonModel();
+
+            var basketResult = await GetBasketByUserIdAsync();
+
+            if (basketResult.AnyError)
+                return 0;
+
+            int itemCount = (int)(basketResult.Data?.Items.Count);
+
+            return itemCount;
+
         }
     }
 }

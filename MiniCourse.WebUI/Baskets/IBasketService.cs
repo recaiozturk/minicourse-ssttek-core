@@ -10,5 +10,7 @@ namespace MiniCourse.WebUI.Baskets
         Task<ServiceResult<BasketDetailViewModel>> GetBasketDetailAsync();
         Task<ServiceResult<BasketResponse>> GetBasketByUserIdAsync();
         Task<ServiceResult> RemoveItemFromBasketAsync(int courseId);
+        //Task<ServiceResult<CustomJsonModel>> GetBasketItemCountAsync();
+        Task<int> GetBasketItemCountAsync();
     }
 }

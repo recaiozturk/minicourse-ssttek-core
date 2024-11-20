@@ -6,6 +6,7 @@ using MiniCourse.WebUI.Categories;
 using MiniCourse.WebUI.Courses;
 using MiniCourse.WebUI.Extensions.Extensions;
 using MiniCourse.WebUI.Handlers;
+using MiniCourse.WebUI.Hubs;
 using MiniCourse.WebUI.Members;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
@@ -13,6 +14,8 @@ using MiniCourse.WebUI.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddSignalR(); // SignalR 
 
 builder.Services.AddControllersWithViews();
 
@@ -94,6 +97,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.MapHub<BasketHub>("/basketHub");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
