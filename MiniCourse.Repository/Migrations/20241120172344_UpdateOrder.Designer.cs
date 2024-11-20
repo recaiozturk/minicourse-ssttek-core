@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniCourse.Repository.Shared;
 
@@ -11,9 +12,11 @@ using MiniCourse.Repository.Shared;
 namespace MiniCourse.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120172344_UpdateOrder")]
+    partial class UpdateOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +111,8 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("6e373459-d809-42eb-958c-766d48b7fe03"),
-                            RoleId = new Guid("c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a")
+                            UserId = new Guid("a2bd55c7-509d-4466-9c57-94a45a3fec1c"),
+                            RoleId = new Guid("4aa9c832-807e-4b73-b9ea-a9bad944f9dd")
                         });
                 });
 
@@ -314,15 +317,11 @@ namespace MiniCourse.Repository.Migrations
                     b.Property<bool>("IsSuccessful")
                         .HasColumnType("bit");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -359,15 +358,15 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a"),
-                            ConcurrencyStamp = "c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a",
+                            Id = new Guid("4aa9c832-807e-4b73-b9ea-a9bad944f9dd"),
+                            ConcurrencyStamp = "4aa9c832-807e-4b73-b9ea-a9bad944f9dd",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("b149818b-4706-4612-b4b8-970d3e0d4ca1"),
-                            ConcurrencyStamp = "b149818b-4706-4612-b4b8-970d3e0d4ca1",
+                            Id = new Guid("c697f0d5-f190-4770-aa29-2eb88a8a96d1"),
+                            ConcurrencyStamp = "c697f0d5-f190-4770-aa29-2eb88a8a96d1",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -447,17 +446,17 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6e373459-d809-42eb-958c-766d48b7fe03"),
+                            Id = new Guid("a2bd55c7-509d-4466-9c57-94a45a3fec1c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96fdc9d1-8638-4a10-bd3f-5cca6e90e544",
+                            ConcurrencyStamp = "d1714d1c-4452-495e-9116-988a1d502930",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJvSXvN/Al73bW52IXDft/7/wRqUC0UEL2Wuo3PHVrPz/OMLeeW5RhtyeK/X67f1XA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEQvb+8+aXH7gPllKSu47K2h99g+cLxw81QC27U0GlLHGQn6e9Os97udLtmkY4W+BA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d1116fa-6e64-4c18-be22-500e5caeb8e8",
+                            SecurityStamp = "71669a3b-88e0-49bc-9dac-f62d0ed6ffca",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

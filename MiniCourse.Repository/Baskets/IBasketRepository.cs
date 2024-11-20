@@ -6,5 +6,6 @@ namespace MiniCourse.Repository.Baskets
     {
         Task<Basket?> GetBasketByUserIdAsync(string userId);
         Task AddItemToBasketAsync(BasketItem basketItem);
+        Task DeleteBasketAsync(int basketId);
     }
 }

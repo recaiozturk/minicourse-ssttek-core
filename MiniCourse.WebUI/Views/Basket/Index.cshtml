@@ -74,7 +74,7 @@
                                     </div>
                                 </td>
                                 <td class="text-right font-weight-semibold align-middle p-4">@item.UnitPrice₺</td>
-                                <td class="align-middle p-4"><input type="text" class="form-control text-center" value="@item.Quantity"></td>
+                                <td class="align-middle p-4"><input disabled type="text" class="form-control text-center" value="@item.Quantity"></td>
                                 <td class="text-right font-weight-semibold align-middle p-4">@item.TotalPrice₺</td>
                                 <td class="text-center align-middle px-0"><a asp-controller="basket" asp-action="RemoveItemFromBasket" asp-route-courseId="@item.CourseId" class="btn btn-danger btn-sm mx-1">Çıkart</a></td>
                             </tr>
@@ -114,7 +114,7 @@
     </div>
     <div class="float-right mt-3">
         <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Aışverişe devam et</button>
-        <button type="button" class="btn btn-lg btn-primary mt-2">Ödeme Bilgileri</button>
+        <a asp-controller="Payment" asp-action="PaymentPage" class="btn btn-lg btn-primary mt-2">Ödeme Bilgileri</a>
     </div>
 </div>
 

@@ -26,16 +26,6 @@ namespace MiniCourse.WebUI.Courses
 
             var course = await response.Content.ReadFromJsonAsync<CourseResponse>();
 
-            //var courseViewModel = new CourseUpdateViewModel
-            //{
-            //    Title = course.Title,
-            //    Description = course.Description,
-            //    Price = course.Price,
-            //    CategoryId = course.CategoryId,
-            //    Id = course.Id,
-            //    CourseImage = course.CourseImage
-            //};
-
             return ServiceResult<CourseResponse>.Success(course);
         }
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using MiniCourse.Repository.Orders;
 using MiniCourse.WebUI.Auths;
 using MiniCourse.WebUI.Baskets;
 using MiniCourse.WebUI.Categories;
@@ -8,6 +9,8 @@ using MiniCourse.WebUI.Extensions.Extensions;
 using MiniCourse.WebUI.Handlers;
 using MiniCourse.WebUI.Hubs;
 using MiniCourse.WebUI.Members;
+using MiniCourse.WebUI.Orders;
+using MiniCourse.WebUI.Payments;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
 
@@ -72,6 +75,16 @@ builder.Services.AddHttpClient<ICourseService, CourseService>(x =>
 }).AddHttpMessageHandler<ClientCredentialHandler>();
 
 builder.Services.AddHttpClient<IBasketService, BasketService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IOrderService, OrderService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
+builder.Services.AddHttpClient<IPaymentService,PaymentService>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();

@@ -17,5 +17,19 @@ namespace MiniCourse.Repository.Baskets
         {
             await context.BasketItems.AddAsync(basketItem);
         }
+
+        public async Task DeleteBasketAsync(int basketId)
+        {
+            var basket = await _context.Baskets
+                .Include(b => b.Items) // Sepetteki ürünleri de dahil et
+                .FirstOrDefaultAsync(b => b.Id == basketId);
+
+            if (basket == null)
+                throw new InvalidOperationException("Sepet bulunamadı.");
+
+            _context.BasketItems.RemoveRange(basket.Items);
+
+            _context.Baskets.Remove(basket);
+        }
     }
 }

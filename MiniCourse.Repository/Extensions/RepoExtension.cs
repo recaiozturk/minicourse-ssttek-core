@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MiniCourse.Repository.Baskets;
 using MiniCourse.Repository.Categories;
 using MiniCourse.Repository.Courses;
+using MiniCourse.Repository.Orders;
+using MiniCourse.Repository.Payments;
 using MiniCourse.Repository.Shared;
 
 namespace MiniCourse.Repository.Extensions
@@ -14,6 +16,8 @@ namespace MiniCourse.Repository.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICourseRepository,CourseRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
