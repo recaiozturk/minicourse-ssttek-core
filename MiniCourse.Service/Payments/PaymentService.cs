@@ -9,11 +9,10 @@ using System.Net;
 
 namespace MiniCourse.Service.Payments
 {
-    public class PaymentService(IOrderRepository orderRepository,IPaymentRepository paymentRepository,IUnitOfWork unitOfWork):IPaymentService
+    public class PaymentService(IOrderRepository orderRepository,IPaymentRepository paymentRepository,IBasketRepository basketRepository,IUnitOfWork unitOfWork):IPaymentService
     {
         public async Task<ApiServiceResult> ProcessPaymentAsync(PaymentRequest request)
         {
-
             var order=await orderRepository.GetByIdAsync(request.OrderId);
 
             if(order == null)
@@ -29,6 +28,10 @@ namespace MiniCourse.Service.Payments
             };
 
             await paymentRepository.AddAsync(payment);
+
+            //sepeti burda sil
+            await basketRepository.DeleteBasketAsync(request.BasketId);
+
             await unitOfWork.CommitAsync();
             await Task.Delay(5000);
 

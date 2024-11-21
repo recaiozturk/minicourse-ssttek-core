@@ -11,5 +11,7 @@
         public string ExpiryDate { get; set; } = default!; // Kart son kullanma tarihi
         public string CVV { get; set; } = default!; // Güvenlik kodu
 
+        public int BasketId { get; set; }
+
     }
 }

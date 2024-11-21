@@ -6,5 +6,6 @@ namespace MiniCourse.WebUI.Orders
     public interface IOrderService
     {
         Task<ServiceResult<OrderResponse>> CreateOrderAsync();
+        Task<ServiceResult<List<OrderResponse>>> GetOrdersByUserIdAsync();
     }
 }

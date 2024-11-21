@@ -40,7 +40,7 @@ namespace MiniCourse.WebUI.Controllers
             //burda payment sayfasıan baska model de gidebilir
 
             //siparis basarili sayfasina gitsin
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Success", "Order");
         }
     }
 }
