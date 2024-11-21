@@ -20,11 +20,11 @@ namespace MiniCourse.Service.Payments
 
             var payment = new Payment
             {
-                OrderId = order.Id, // Sipariş ID'si
+                OrderId = order.Id, 
                 UserId = order.UserId.ToString(),
                 Amount = order.TotalAmount,
                 PaymentDate = DateTime.UtcNow,
-                IsSuccessful = true // Ödeme başarılı
+                IsSuccessful = true 
             };
 
             await paymentRepository.AddAsync(payment);
