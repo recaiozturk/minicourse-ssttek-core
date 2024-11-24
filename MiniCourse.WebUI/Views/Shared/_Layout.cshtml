@@ -21,16 +21,13 @@
                         @await Component.InvokeAsync("CatDropDown")
                     </li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Courses" asp-action="Index">Kurslar</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Home" asp-action="Index">AdminSideTest</a></li>
+                    @*<li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Home" asp-action="Index">AdminSideTest</a></li>*@
 
 
                     <form class="d-flex" role="search">
                         <input autocomplete="off" id="headerSearch" class="form-control me-2 border-gray  header-search" type="search" placeholder="Kurs Ara" aria-label="Search">
                         <div class="spinner-border spinner-border-sm spinnerSearch d-none  " id="buttonSpinner" role="status" aria-hidden="true"></div>
                     </form>
-
-
-
 
 
                 </ul>
