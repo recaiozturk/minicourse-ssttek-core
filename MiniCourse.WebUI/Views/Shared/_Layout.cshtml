@@ -3,37 +3,36 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MiniCourse.WebUI</title>
+    <title>@ViewData["Title"] - MiniCourse</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MiniCourse.WebUI.styles.css" asp-append-version="true" />
+    <link href="~/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand" href="/">Mini Courses</a>
+            <a class="navbar-brand" href="/">MiniCourse</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    @*<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Kategoriler</a></li>*@
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kategoriler</a>
                         @await Component.InvokeAsync("CatDropDown")
                     </li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Courses" asp-action="Index">Kurslar</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Home" asp-action="Index">AdminSideTest</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">DropDown Değişcek</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li>
+
+
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2  header-search" type="search" placeholder="Kurs Ara" aria-label="Search">
+                        <input autocomplete="off" id="headerSearch" class="form-control me-2 border-gray  header-search" type="search" placeholder="Kurs Ara" aria-label="Search">
+                        <div class="spinner-border spinner-border-sm spinnerSearch d-none  " id="buttonSpinner" role="status" aria-hidden="true"></div>
                     </form>
+
+
+
+
+
                 </ul>
 
                 <div class="ms-auto d-flex">
@@ -42,7 +41,6 @@
                             <i class="bi-cart-fill me-1"></i>
                             Sepet
                             @await Component.InvokeAsync("BasketCount")
-                            @*<span id="basket-count" class="badge bg-dark text-white ms-1 rounded-pill" >0</span>*@
                         </a>
                     </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -73,33 +71,51 @@
             </div>
         </div>
     </nav>
+    <div id="courseSearchResult" class="">
+
+    </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="server-alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="server-alert-server-alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
 
     <section class="py-5">
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-info text-center" role="alert">
-                @TempData["SuccessMessage"]
-            </div>
-        }
-
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-warning text-center" role="alert">
-                @TempData["ErrorMessage"]
-            </div>
-        }
         @RenderBody()
     </section>
 
+    <div id="customToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                Hello, world! This is a toast message.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
 
-    <footer class="bg-dark footer mt-">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+
+
+    <footer class="bg-dark footer foot-fix">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; MiniCourse 2024</p></div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>*@
+    <script src="~/microsoft-signalr/signalr.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>*@
+    <script src="~/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/search.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -15,9 +15,9 @@ namespace MiniCourse.WebUI.Controllers
                 foreach (var error in response.Errors!)
                 {
                     ModelState.AddModelError(string.Empty, error);
+                    return View();
                 }
             }
-
             return View(response.Data);
         }
 

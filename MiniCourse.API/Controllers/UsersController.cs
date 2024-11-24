@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Users;
 using MiniCourse.Service.Users.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class UsersController(IUserService userService) : CustomControllerBase
     {
         [HttpGet("getusers")]

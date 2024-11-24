@@ -12,11 +12,18 @@ namespace MiniCourse.WebUI.Controllers
             return View(coursesPagedResult.Data);
         }
 
+        [HttpGet("courses/detail/{courseId}")]
         public async Task<IActionResult> Detail(int courseId)
         {
             var coursesDetailResult = await courseService.GetCourseAsync(courseId);
             return View(coursesDetailResult.Data);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> SearchCourse(string searchValue)
+        {
+            var result = await courseService.SearchCourseAsync(searchValue);
+            return Json(result.Data);
+        }
     }
 }

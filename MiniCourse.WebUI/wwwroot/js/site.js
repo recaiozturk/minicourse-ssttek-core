@@ -1,4 +1,5 @@
 ﻿
+
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("/basketHub")
     .build();
@@ -7,30 +8,74 @@ connection.start()
     .then(() => console.log("SignalR bağlantısı kuruldu."))
     .catch(err => console.error("SignalR bağlantısı başarısız:", err));
 
-// Sepet güncellemelerini dinleyin
+
 connection.on("ReceiveBasketItemCount", function (itemCount) {
     console.log("Sepet güncellendi:", itemCount);
     $("#basket-count").text(itemCount); 
 });
 
+
+
 $(document).on('click', '.add-to-basket', function () {
+
     const courseId = $(this).data('course-id');
-    console.log(courseId)
+    const quantityInput = $('#courseQuantity').val() ? $('#courseQuantity').val() : 1;
+/*    const quantityInput = $('#courseQuantity').val();*/
+
+ 
 
     $.ajax({
         url: '/Basket/AddToBasket', 
         method: 'POST',
-        data: { courseId: courseId,  quantity: 1 },
+        data: { courseId: courseId, quantity: quantityInput },
+
         success: function (response) {
             console.log(response)
             if (response.isValid) {
-                alert(response.message);
+                Toast.fire({
+                    icon: response.isValid ? "success" : "error",
+                    title: response.message,
+                    customClass: {
+                        popup: 'custom-toast-bg'
+                    }
+                });
             } else {
-                alert(response.message);
+                Toast.fire({
+                    icon: response.isValid ? "success" : "error",
+                    title: response.message,
+                    customClass: {
+                        popup: 'custom-toast-bg'
+                    }
+                });
             }
         },
         error: function () {
-            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+            Toast.fire({
+                icon: "error",
+                title: "Bir hata oluştu. Lütfen tekrar deneyin.",
+                customClass: {
+                    popup: 'custom-toast-bg'
+                }
+            });
         }
     });
+});
+
+$(document).ready(function () {
+    setTimeout(function () {
+        $(".server-alert-success").slideUp();
+    }, 2000);
+});
+
+
+let Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1200,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
 });

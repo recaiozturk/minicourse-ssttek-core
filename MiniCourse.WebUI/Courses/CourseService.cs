@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using MiniCourse.WebUI.Baskets.DTOs;
+using MiniCourse.WebUI.Baskets.ViewModels;
 using MiniCourse.WebUI.Courses.DTOs;
 using MiniCourse.WebUI.Courses.ViewModels;
 using MiniCourse.WebUI.Shared;
 using MiniCourse.WebUI.Util;
 using MiniCourse.WebUI.ViewModels;
+using System.Security.Claims;
 
 namespace MiniCourse.WebUI.Courses
 {
@@ -178,6 +181,39 @@ namespace MiniCourse.WebUI.Courses
             tempData["SuccessMessage"] = "Kurs başarıyla silindi.";
 
             return ServiceResult.Success();
+        }
+
+        public async Task<ServiceResult<CustomJsonModel>> SearchCourseAsync(string searchValue) 
+        {
+            CustomJsonModel jsonModel = new CustomJsonModel();
+
+
+            //if (searchValue.Length<1 is null)
+            //{
+            //    jsonModel.IsValid = false;
+            //    jsonModel.Message = "Sepete Ekleme yapmak için giriş yapınız";
+            //    return ServiceResult<CustomJsonModel>.Success(jsonModel);
+            //}
+
+
+            var address = $"/api/Courses/search?searchValue={searchValue}";
+
+            var response = await client.GetAsync(address);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                jsonModel.IsValid = false;
+                jsonModel.Message = problemDetail!.Detail!;
+                return ServiceResult<CustomJsonModel>.Success(jsonModel);
+            }
+
+            var courses = await response.Content.ReadFromJsonAsync<List<CourseViewModel>>();
+
+            jsonModel.IsValid = true;
+            jsonModel.Data = courses;
+
+            return ServiceResult<CustomJsonModel>.Success(jsonModel);
         }
     }
 }

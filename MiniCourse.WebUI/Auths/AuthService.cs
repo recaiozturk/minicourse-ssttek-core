@@ -17,7 +17,6 @@ namespace MiniCourse.WebUI.Auths
         {
             var address = "/api/Auth/signin";
 
-
             var response = await client.PostAsJsonAsync<SignInViewModel>(address, model);
 
             if (!response.IsSuccessStatusCode)
@@ -31,7 +30,7 @@ namespace MiniCourse.WebUI.Auths
 
             JsonWebTokenHandler tokenHandler = new JsonWebTokenHandler();
 
-            var jwtAsDecoded = tokenHandler.ReadJsonWebToken(tokenResponse!.AccessToken);
+            var jwtAsDecoded = tokenHandler.ReadJsonWebToken(tokenResponse!.AccessToken.ToString());
 
 
             ClaimsIdentity claimsIdentity =
@@ -45,19 +44,15 @@ namespace MiniCourse.WebUI.Auths
                 IsPersistent = model.RememberMe
             };
 
-
             var accessToken = new AuthenticationToken()
             {
                 Name = OpenIdConnectParameterNames.AccessToken,
                 Value = tokenResponse.AccessToken
             };
 
-
             authenticationProperties.StoreTokens([accessToken]);
 
-
             await httpContextAccessor.HttpContext!.SignInAsync(claimsPrincipal, authenticationProperties);
-
 
             return ServiceResult.Success();
         }
@@ -81,8 +76,23 @@ namespace MiniCourse.WebUI.Auths
 
         }
 
+        //public string GetAccessTokenFromCookie()
+        //{
+        //    // Cookie'den access token'ı al
+        //    var accessToken = httpContextAccessor.HttpContext?.Request.Cookies["access_token"];
+
+        //    if (string.IsNullOrEmpty(accessToken))
+        //    {
+        //        // Token yoksa login sayfasına yönlendir
+        //        httpContextAccessor.HttpContext.Response.Redirect("/");
+        //        //Response.Redirect("/Login");
+        //    }
+
+        //    return accessToken;
+        //}
+
         public async Task<ServiceResult<SignInResponse>> GetClientCredentialToken()
-        {
+        {  
             var clientCredentialTokenRequest = new ClientCredentialTokenRequest(
                 configuration.GetSection("Clients")["ClientId"]!,
                 configuration.GetSection("Clients")["ClientSecret"]!);
@@ -104,16 +114,6 @@ namespace MiniCourse.WebUI.Auths
 
 
             return ServiceResult<SignInResponse>.Success(signResponse!);
-        }
-
-        public async Task<ServiceResult<string>> GetTokenAsync()
-        {
-            //if(httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            var authenticateResult = await httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var storedTokens = authenticateResult.Properties.GetTokens();
-            var accessToken = storedTokens.FirstOrDefault(t => t.Name == "access_token")?.Value;
-
-            return ServiceResult<string>.Success(accessToken);
         }
     }
 }

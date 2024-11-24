@@ -26,8 +26,52 @@ body {
     min-width: 300px;
 }
 
+.btn-outline-dark {
+    background-color: #343a40; /* Siyah arka plan */
+    color: #fff; /* Beyaz yazý */
+    border-color: #343a40; /* Siyah kenar */
+}
 
-/*log button and basket div*/
+    .btn-outline-dark:hover {
+        background-color: #fff; /* Beyaz arka plan */
+        color: #343a40; /* Siyah yazý */
+        border-color: #343a40; /* Siyah kenar */
+    }
+
+.foot-fix {
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+
 #navbarSupportedContent > div{
     margin-right:60px;
+}
+
+.custom-toast-bg {
+    background-color: #28a745 !important;
+    color: #fff !important; 
+}
+
+.server-alert-success {
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: green;
+}
+
+.server-alert-danger {
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: red;
+}
+
+.spinnerSearch {
+    position: relative;
+    right: -1px;
+    bottom: -12px;
 }

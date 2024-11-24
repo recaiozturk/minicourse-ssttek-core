@@ -41,13 +41,13 @@ namespace MiniCourse.API.Controllers
             return CreateObjectResult(result);
         }
 
-        //[HttpGet("getcoursewithcategory")]
-        //public async Task<IActionResult> GetCourseWithCategoryAsync(int courseId)
-        //{
-        //    var result = await courseService.GetCourseWithCategoryAsync(courseId);
-        //    return CreateObjectResult(result);
-        //}
-        
+        [HttpGet("getcoursewithcategory")]
+        public async Task<IActionResult> GetCourseWithCategoryAsync(int courseId)
+        {
+            var result = await courseService.GetCourseWithCategoryAsync(courseId);
+            return CreateObjectResult(result);
+        }
+
         [HttpPost("createcourse")]
         public async Task<IActionResult> CreateCourseAsync(CreateCourseRequest request)
         {
@@ -68,5 +68,14 @@ namespace MiniCourse.API.Controllers
             var result = await courseService.DeleteCourseAsync(courseId);
             return CreateObjectResult(result);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchCourseAsync(string searchValue)
+        {
+            var result = await courseService.SearchCourseAsync(searchValue);
+            return CreateObjectResult(result);
+        }
+
+        
     }
 }

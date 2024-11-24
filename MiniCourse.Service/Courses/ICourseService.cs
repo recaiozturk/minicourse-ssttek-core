@@ -18,5 +18,8 @@ namespace MiniCourse.Service.Courses
         Task<ApiServiceResult> UpdateCourseAsync(UpdateCourseRequest request);
 
         Task<ApiServiceResult> DeleteCourseAsync(int courseId);
+
+        Task<ApiServiceResult<List<CourseResponse>>> SearchCourseAsync(string searchValue);
+        Task<ApiServiceResult<CourseResponse>> GetCourseWithCategoryAsync(int courseId);
     }
 }

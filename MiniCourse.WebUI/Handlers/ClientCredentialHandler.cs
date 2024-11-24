@@ -1,10 +1,13 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Azure.Core;
+using Microsoft.Extensions.Caching.Memory;
 using MiniCourse.WebUI.Auths;
+using NuGet.Common;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace MiniCourse.WebUI.Handlers
 {
-    public class ClientCredentialHandler(IMemoryCache memoryCache, IAuthService authService) : DelegatingHandler
+    public class ClientCredentialHandler(IMemoryCache memoryCache, IAuthService authService, IHttpContextAccessor httpContextAccessor) : DelegatingHandler
     {
         private const string TokenCacheKey = "tokenCacheKey";
 
@@ -13,29 +16,25 @@ namespace MiniCourse.WebUI.Handlers
         {
             if (!memoryCache.TryGetValue(TokenCacheKey, out object? token))
             {
-                //clientler için credential
-                var resultCredential = await authService.GetClientCredentialToken();
+                var result = await authService.GetClientCredentialToken();
 
-                //var accecTokenResult = await authService.GetTokenAsync();
+                if (result.AnyError)
+                {
+                    throw new Exception(result.GetFirstError);
+                }
 
-                //if(resultCredential.AnyError)
-                //{
-                //    throw new Exception(accecTokenResult.GetFirstError);
-                //}
-                //else if (accecTokenResult.AnyError)
-                //{
-                //    throw new Exception(accecTokenResult.GetFirstError);
-                //}
-
-                //tokenCredential = resultCredential.Data!.AccessToken;
-                //token = accecTokenResult.Data!;
-                token = resultCredential.Data.AccessToken!;
+                token = result.Data!.AccessToken;
                 memoryCache.Set(TokenCacheKey, token, TimeSpan.FromMinutes(295));
             }
 
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token!.ToString());
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("bearer", token!.ToString());
+
+
+
 
             return await base.SendAsync(request, cancellationToken);
         }
+
     }
 }

@@ -8,7 +8,6 @@
 
     <style>
         .product-image {
-            /*max-height: 400px;*/
             width: -webkit-fill-available;
             object-fit: cover;
         }
@@ -51,12 +50,9 @@
                 </p>
                 <div class="mb-4">
                     <label for="quantity" class="form-label">Quantity:</label>
-                    <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;">
+                    <input type="number" class="form-control" id="courseQuantity" value="1" min="1" style="width: 80px;"    >
                 </div>
-                <a class="btn btn-outline-dark btn-lg  mb-3 me-2" href="#">Sepete Ekle</a>
-                @*<button class="btn btn-primary btn-lg mb-3 me-2">
-                    <i class="bi bi-cart-plus"></i> Add to Cart
-                </button>*@
+                <a class="btn btn-outline-dark btn-lg mb-3 me-2 add-to-basket" data-course-id="@Model.Id">Sepete Ekle</a>
 
             </div>
         </div>
@@ -69,15 +65,6 @@
             event.target.classList.add('active');
         }
     </script>
-
-@*<h1>@Model.Title</h1>
-
-<h3>@Model.Category.Name</h3>
-<h3>@Model.Description</h3>
-<h3>@Model.Price</h3>
-<h3>Detail</h3>
-
-<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Sepete Ekle</a></div>*@
 
 
 

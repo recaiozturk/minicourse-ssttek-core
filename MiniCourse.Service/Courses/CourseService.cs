@@ -5,6 +5,7 @@ using MiniCourse.Repository.Shared;
 using MiniCourse.Service.Courses.DTOs;
 using MiniCourse.Service.Shared;
 using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MiniCourse.Service.Courses
 {
@@ -143,5 +144,23 @@ namespace MiniCourse.Service.Courses
 
             return ApiServiceResult.Success(HttpStatusCode.OK);
         }
+
+        public async Task<ApiServiceResult<List<CourseResponse>>> SearchCourseAsync(string searchValue)
+        {
+            var coursesQuaryble =  courseRepository.GetAll();
+
+            if (coursesQuaryble == null)
+            {
+                return ApiServiceResult<List<CourseResponse>>.Fail("Kurs bulunamadı", HttpStatusCode.NotFound);
+            }
+
+            var searchedCourses= await coursesQuaryble.Where(c => c.Title.Contains(searchValue)).ToListAsync();
+
+            var coursesResponse = mapper.Map<List<CourseResponse>>(searchedCourses);
+
+            return ApiServiceResult<List<CourseResponse>>.Success(coursesResponse, HttpStatusCode.OK);
+        }
+
+        
     }
 }

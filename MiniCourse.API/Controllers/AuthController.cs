@@ -7,7 +7,6 @@ namespace MiniCourse.API.Controllers
 {
     public class AuthController(IAuthService authService) : CustomControllerBase
     {
-
         [HttpPost("signin")]
         public async Task<IActionResult> SignInAsync(SignInRequest request)
         {

@@ -9,8 +9,5 @@ namespace MiniCourse.WebUI.Auths
         Task<ServiceResult> SignInAsync(SignInViewModel model);
         Task<ServiceResult<SignInResponse>> GetClientCredentialToken();
         Task<ServiceResult> SignUpAsync(SignUpViewModel viewModel);
-
-        Task<ServiceResult<string>> GetTokenAsync();
-
     }
 }

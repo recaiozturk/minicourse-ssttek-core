@@ -15,17 +15,17 @@
             @foreach (var course in Model.Courses)
             {
                 <div class="col mb-5">
-                    <div class="card h-100">
+                    <div class="card h-100 shadow-sm">
                         <img class="card-img-top" src="~/img/@course.CourseImage" alt="..." />
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <a asp-controller="Courses" asp-action="Detail" asp-route-courseId="@course.Id"><h5 class="fw-bolder">@course.Title</h5></a>
+                                <a class="text-decoration-none text-black" asp-controller="Courses" asp-action="Detail" asp-route-courseId="@course.Id"><h5 class="fw-bolder">@course.Title</h5></a>
                                 @course.Price  ₺
                             </div>
                         </div>
                         <p class="text-center">@course.Category.Name</p>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Sepete Ekle</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto add-to-basket" data-course-id="@course.Id">Sepete Ekle</a></div>
                         </div>
                     </div>
                 </div>
@@ -45,4 +45,7 @@
         }
     </ul>
 </nav>
+
+
+
 

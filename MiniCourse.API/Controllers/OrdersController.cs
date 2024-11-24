@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Orders;
 using MiniCourse.Service.Orders.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
+    [Authorize]
     public class OrdersController(IOrderService orderService) : CustomControllerBase
     {
         [HttpGet("create-order")]

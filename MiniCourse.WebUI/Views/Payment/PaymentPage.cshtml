@@ -9,37 +9,11 @@
 <div class="container">
     <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-            
+
 
             @await Component.InvokeAsync("PaymentSummary")
-            @*<ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">Product name</h6>
-                    <small class="text-muted">Brief description</small>
-                </div>
-                <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">Second product</h6>
-                    <small class="text-muted">Brief description</small>
-                </div>
-                <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">Third item</h6>
-                    <small class="text-muted">Brief description</small>
-                </div>
-                <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>$20</strong>
-            </li>
-        </ul>*@
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+
+
 
         </div>
         <div class="col-md-7 col-lg-8">
@@ -122,7 +96,7 @@
 
                 <hr class="my-4">
 
-                <button id="paymentButton" class="w-100 btn btn-primary btn-lg" type="submit">
+                <button id="paymentButton" class="w-100 btn btn-outline-dark btn-lg" type="submit">
                     <div class="spinner-border spinner-border-sm d-none" id="buttonSpinner" role="status" aria-hidden="true"></div>
                     <span id="buttonText">Ödeme Yap</span>
 
@@ -137,7 +111,6 @@
     @section Scripts{
         <script>
             $(document).ready(function () {
-                // Eğer validasyon hatası varsa butonu yeniden etkinleştir
 
             });
             $("#paymentButton").prop("disabled", false);
@@ -159,14 +132,11 @@
                 var $spinner = $("#buttonSpinner");
                 var $buttonText = $("#buttonText");
 
-                // Validasyon kontrolü
                 if (!$form.valid()) {
-                    // Form geçerli değilse, spinner çalışmasın
                     e.preventDefault();
                     return;
                 }
 
-                // Form geçerliyse spinner'ı göster ve butonu devre dışı bırak
                 $spinner.removeClass("d-none");
                 $buttonText.text("Ödeme İşleniyor...");
                 $button.prop("disabled", true);

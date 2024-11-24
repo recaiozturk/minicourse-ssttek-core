@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
-using MiniCourse.Repository.Orders;
 using MiniCourse.WebUI.Auths;
 using MiniCourse.WebUI.Baskets;
 using MiniCourse.WebUI.Categories;
@@ -13,6 +12,7 @@ using MiniCourse.WebUI.Orders;
 using MiniCourse.WebUI.Payments;
 using MiniCourse.WebUI.Roles;
 using MiniCourse.WebUI.Users;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +24,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
 
-//ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+//cookiyi sifreleyen keyi kaydeder
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "keys")))
     .SetDefaultKeyLifetime(TimeSpan.FromDays(30));
@@ -33,15 +34,16 @@ builder.Services.AddDataProtection()
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     CookieAuthenticationDefaults.AuthenticationScheme, options =>
     {
+
         options.Cookie.Name = "ssttek_cookie";
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
         options.LoginPath = "/Auth/SignIn";
         options.AccessDeniedPath = "/Home/AccessDenied";
     });
+builder.Services.AddAuthorization();
 
 
 
-builder.Services.AddScoped<ClientCredentialHandler>();
 
 builder.Services.AddHttpClient<IAuthService, AuthService>(x =>
 {
@@ -100,7 +102,9 @@ builder.Services.AddFluentExt(builder.Configuration);
 
 builder.Services.AddMemoryCache();
 
-builder.Services.AddAuthorization();
+builder.Services.AddScoped<ClientCredentialHandler>();
+
+
 
 
 var app = builder.Build();

@@ -9,12 +9,6 @@
 <div class="container">
     <div class="col-md-4 offset-md-4">
         <h1>Profil Bilgileri</h1>
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-info" role="alert">
-                @TempData["SuccessMessage"]
-            </div>
-        }
         <a asp-controller="Member" asp-action="ProfileUpdate" class="btn btn-primary mt-3">Profil Bilgilerini Güncelle</a>
         <a asp-controller="Member" asp-action="PasswordChange" class="btn btn-success mt-3">Parola Güncelle</a>
         <table class="table">

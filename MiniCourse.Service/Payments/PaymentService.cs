@@ -2,7 +2,6 @@
 using MiniCourse.Repository.Orders;
 using MiniCourse.Repository.Payments;
 using MiniCourse.Repository.Shared;
-using MiniCourse.Service.Baskets.DTOs;
 using MiniCourse.Service.Payments.DTOs;
 using MiniCourse.Service.Shared;
 using System.Net;

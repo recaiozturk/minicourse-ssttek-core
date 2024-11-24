@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniCourse.Service.Payments;
 using MiniCourse.Service.Payments.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Authorize]
     public class PaymentsController(IPaymentService paymentService) : CustomControllerBase
     {
         [HttpPost("process-payment")]

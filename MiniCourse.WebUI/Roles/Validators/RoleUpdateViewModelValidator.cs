@@ -9,7 +9,7 @@ namespace MiniCourse.WebUI.Roles.Validators
         {
             RuleFor(x => x.Name)
                         .NotEmpty().WithMessage("Rol adı boş olamaz.")
-                        .MinimumLength(5).WithMessage("Rol adı en az 3 karakter olmalıdır.");
+                        .MinimumLength(3).WithMessage("Rol adı en az 3 karakter olmalıdır.");
 
         }
     }

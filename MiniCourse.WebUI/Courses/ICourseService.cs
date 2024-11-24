@@ -15,5 +15,6 @@ namespace MiniCourse.WebUI.Courses
         Task<ServiceResult> CreateCourseAsync(CourseCreateViewModel model);
         Task<ServiceResult> UpdateCourseAsync(CourseUpdateViewModel model);
         Task<ServiceResult> DeleteCourseAsync(int courseId);
+        Task<ServiceResult<CustomJsonModel>> SearchCourseAsync(string searchValue);
     }
 }

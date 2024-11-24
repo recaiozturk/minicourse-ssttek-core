@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -34,16 +35,21 @@ namespace MiniCourse.Service.Auths
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Email, user.Email!),
-                new Claim("token_id", Guid.NewGuid().ToString())
+                new Claim("token_id", Guid.NewGuid().ToString()),
+
             };
 
             var roles = await userManager.GetRolesAsync(user);
 
+
             userClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
 
             var claimListAsScope = await userManager.GetClaimsAsync(user);
 
+
             userClaims.AddRange(claimListAsScope);
+
 
             JwtSecurityToken newToken = new JwtSecurityToken(
                 issuer: configuration["TokenOption:Issuer"],
@@ -54,10 +60,13 @@ namespace MiniCourse.Service.Auths
                     SecurityAlgorithms.HmacSha256)
             );
 
+
             var accessTokenAsString = new JwtSecurityTokenHandler().WriteToken(newToken);
 
             return ApiServiceResult<TokenResponse>.Success(new TokenResponse(accessTokenAsString), HttpStatusCode.OK);
         }
+
+
 
 
         public Task<ApiServiceResult<TokenResponse>> SignInClientCredentialAsync(SignInClientCredentialRequest request)
@@ -91,6 +100,8 @@ namespace MiniCourse.Service.Auths
 
 
             var accessTokenAsString = new JwtSecurityTokenHandler().WriteToken(newToken);
+
+
             return Task.FromResult(
                 ApiServiceResult<TokenResponse>.Success(new TokenResponse(accessTokenAsString), HttpStatusCode.OK));
         }

@@ -6,7 +6,7 @@ using MiniCourse.Service.Users.DTOs;
 
 namespace MiniCourse.API.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class RolesController(IRoleService roleService) : CustomControllerBase
     {      
         [HttpGet("getroles")]        
