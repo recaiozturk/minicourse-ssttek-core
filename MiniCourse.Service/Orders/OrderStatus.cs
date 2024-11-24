@@ -5,7 +5,7 @@
         // Sipariş yeni oluşturuldu, ödeme bekliyor
         Pending = 1,
 
-        // Ödeme başarılı, sipariş işleniyor
+        // Ödeme başarılı, sipariş hazirlaniyor
         Paid = 2,
 
         // Ödeme yapılmadı veya başarısız oldu

@@ -27,10 +27,6 @@ namespace MiniCourse.WebUI.Courses.Validators
             .NotEmpty().WithMessage("kategori Seçiniz")
             .GreaterThan(0).WithMessage("Geçerli bir kategori seçiniz");
 
-
-            //RuleFor(x => x.ImageFile)
-            //    .NotNull().WithMessage("Bir resim dosyası yüklemeniz gerekmektedir.")
-            //    .Must(file => file.Length > 0).WithMessage("Bir resim dosyası yüklemeniz gerekmektedir.");
         }
     }
 }

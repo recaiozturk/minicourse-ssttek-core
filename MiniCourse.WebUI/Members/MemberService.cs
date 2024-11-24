@@ -16,7 +16,6 @@ namespace MiniCourse.WebUI.Members
 
             model.UserId= httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //bad request donuyor
             var response = await client.PutAsJsonAsync(address, model);
 
 

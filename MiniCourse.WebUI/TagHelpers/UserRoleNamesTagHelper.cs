@@ -14,12 +14,6 @@ namespace MiniCourse.WebUI.TagHelpers
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
 
-            //var user = await _userManager.FindByIdAsync(UserId);
-
-            //var userRoles = await _userManager.GetRolesAsync(user!);
-
-            //userRoles cek apiden
-
             var userRoles = await roleService.GetRolesByUserAsync(UserId);
 
             var stringBuilder = new StringBuilder();

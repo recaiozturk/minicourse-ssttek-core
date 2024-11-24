@@ -8,8 +8,8 @@ namespace MiniCourse.Repository.Baskets
         public async Task<Basket?> GetBasketByUserIdAsync(string userId)
         {
             return await context.Baskets
-                .Include(b => b.Items) // BasketItem'ları dahil ediyoruz
-                .ThenInclude(bi => bi.Course) // Course bilgilerini de yüklüyoruz
+                .Include(b => b.Items) 
+                .ThenInclude(bi => bi.Course)
                 .FirstOrDefaultAsync(b => b.UserId == userId);
         }
 
@@ -21,7 +21,7 @@ namespace MiniCourse.Repository.Baskets
         public async Task DeleteBasketAsync(int basketId)
         {
             var basket = await _context.Baskets
-                .Include(b => b.Items) // Sepetteki ürünleri de dahil et
+                .Include(b => b.Items)
                 .FirstOrDefaultAsync(b => b.Id == basketId);
 
             if (basket == null)

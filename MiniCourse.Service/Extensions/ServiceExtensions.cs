@@ -5,6 +5,7 @@ using MiniCourse.Service.Baskets;
 using MiniCourse.Service.Categories;
 using MiniCourse.Service.Courses;
 using MiniCourse.Service.Members;
+using MiniCourse.Service.Nlogs;
 using MiniCourse.Service.Orders;
 using MiniCourse.Service.Payments;
 using MiniCourse.Service.Roles;
@@ -25,6 +26,7 @@ namespace MiniCourse.Service.Extensions
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<INlogService, NlogService>();
 
             return services;
         }

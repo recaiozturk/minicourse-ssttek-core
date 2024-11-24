@@ -8,14 +8,10 @@ namespace MiniCourse.Service.Courses
     {
         public CourseMappingProfile()
         {
-
             CreateMap<Course, CourseResponse>();
-
             CreateMap<CreateCourseRequest, Course>();
             CreateMap<UpdateCourseRequest, Course>();
-
             CreateMap<Course, CreateCourseResponse>();
-
             CreateMap<Course, CourseSearchResponse>();
 
         }

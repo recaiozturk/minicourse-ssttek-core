@@ -15,7 +15,7 @@ namespace MiniCourse.WebUI.Controllers
             if (result.AnyError)
                 return RedirectToAction(nameof(Index), "Basket");
 
-            //burda payment sayfasıan baska model de gidebilir
+            //burda payment sayfasına baska model de gidebilir
             ViewBag.OrderId = result.Data.OrderId;
             return View();
         }
@@ -35,11 +35,6 @@ namespace MiniCourse.WebUI.Controllers
                 return View(model);
             }
 
-
-
-            //burda payment sayfasıan baska model de gidebilir
-
-            //siparis basarili sayfasina gitsin
             return RedirectToAction("Success", "Order");
         }
     }

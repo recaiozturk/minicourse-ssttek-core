@@ -17,36 +17,27 @@
 
         </div>
         <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">Billing address</h4>
+            <h4 class="mb-3">Fatura Bilgileri</h4>
             <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
             <form id="paymentForm" asp-controller="Payment" asp-action="PaymentPage" method="post" class="needs-validation" novalidate>
                 <input type="hidden" asp-for="OrderId"  value="@ViewBag.OrderId" />
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label asp-for="NameForBill" class="form-label">First name</label>
+                        <label asp-for="NameForBill" class="form-label">İsim</label>
                         <input asp-for="NameForBill" class="form-control" value="">
                         <span asp-validation-for="NameForBill" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <label asp-for="LastNameForBill" class="form-label">Last name</label>
+                        <label asp-for="LastNameForBill" class="form-label">Soy İsim</label>
                         <input asp-for="LastNameForBill" class="form-control" value="">
                         <span asp-validation-for="LastNameForBill" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
                     </div>
 
                     <div class="col-12">
                         <label asp-for="AdressForBill" class="form-label">Address</label>
                         <input asp-for="AdressForBill" class="form-control">
                         <span asp-validation-for="AdressForBill" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
                     </div>
 
 
@@ -54,43 +45,31 @@
 
                 <hr class="my-4">
 
-                <h4 class="mb-3">Payment</h4>
+                <h4 class="mb-3">Ödeme Bilgileri</h4>
                 <div class="row gy-3">
                     <div class="col-md-6">
-                        <label asp-for="CardHolderName" class="form-label">Name on card</label>
+                        <label asp-for="CardHolderName" class="form-label">Kart sahibinin ismi</label>
                         <input asp-for="CardHolderName" class="form-control">
                         <span asp-validation-for="CardHolderName" class="text-danger"></span>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            Name on card is required
-                        </div>
+
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="CardNumber" class="form-label">Credit card number</label>
+                        <label asp-for="CardNumber" class="form-label">Kredi karti numarasi</label>
                         <input asp-for="CardNumber" class="form-control">
                         <span asp-validation-for="CardNumber" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Credit card number is required
-                        </div>
                     </div>
 
                     <div class="col-md-3">
-                        <label asp-for="ExpiryDate" class="form-label">Expiration</label>
+                        <label asp-for="ExpiryDate" class="form-label">Son Kullanma Tarihi</label>
                         <input asp-for="ExpiryDate" class="form-control">
                         <span asp-validation-for="ExpiryDate" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Expiration date required
-                        </div>
                     </div>
 
                     <div class="col-md-3">
                         <label asp-for="CVV" class="form-label">CVV</label>
                         <input asp-for="CVV" class="form-control">
                         <span asp-validation-for="CVV" class="text-danger"></span>
-                        <div class="invalid-feedback">
-                            Security code required
-                        </div>
                     </div>
                 </div>
 

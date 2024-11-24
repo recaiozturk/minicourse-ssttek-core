@@ -28,8 +28,6 @@ namespace MiniCourse.Service.Tokens
             var rolesClaim = roles.Select(role => new Claim(ClaimTypes.Role, role));
             claims.AddRange(rolesClaim);
 
-            //userClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
             JwtSecurityToken jwt = new JwtSecurityToken(
                 issuer: configuration["AppSettings:ValidIssuer"],
                 audience: configuration["AppSettings:ValidAudience"],

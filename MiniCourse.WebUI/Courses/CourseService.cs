@@ -187,15 +187,6 @@ namespace MiniCourse.WebUI.Courses
         {
             CustomJsonModel jsonModel = new CustomJsonModel();
 
-
-            //if (searchValue.Length<1 is null)
-            //{
-            //    jsonModel.IsValid = false;
-            //    jsonModel.Message = "Sepete Ekleme yapmak için giriş yapınız";
-            //    return ServiceResult<CustomJsonModel>.Success(jsonModel);
-            //}
-
-
             var address = $"/api/Courses/search?searchValue={searchValue}";
 
             var response = await client.GetAsync(address);

@@ -5,7 +5,6 @@ using MiniCourse.Repository.Shared;
 using MiniCourse.Service.Courses.DTOs;
 using MiniCourse.Service.Shared;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MiniCourse.Service.Courses
 {

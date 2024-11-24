@@ -16,9 +16,6 @@ namespace MiniCourse.WebUI.Extensions.Extensions
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //services.AddValidatorsFromAssemblyContaining<UserCreateViewModelValidator>();
-
-
             return services;
         }
     }

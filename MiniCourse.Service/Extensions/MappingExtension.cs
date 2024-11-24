@@ -8,7 +8,6 @@ namespace MiniCourse.Service.Extensions
     {
         public static IServiceCollection AddMappingExt(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;

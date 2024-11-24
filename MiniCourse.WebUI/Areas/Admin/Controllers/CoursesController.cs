@@ -17,7 +17,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return View(coursesResult.Data);
         }
 
-        // Kurs Oluşturma - GET
         public async Task<IActionResult> CourseCreate()
         {
             var categories = await categoryService.GetCategoriesAsync(); 
@@ -25,7 +24,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        // Kurs Oluşturma - POST
         [HttpPost]
         public async Task<IActionResult> CourseCreate(CourseCreateViewModel model)
         {
@@ -44,7 +42,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Kurs Güncelleme - GET
         public async Task<IActionResult> CourseUpdate(int courseId)
         {
             var courseResult = await courseService.GetCourseAsync(courseId);
@@ -56,7 +53,7 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return View(courseResult.Data);
         }
 
-        // Kurs Güncelleme - POST
+
         [HttpPost]
         public async Task<IActionResult> CourseUpdate(CourseUpdateViewModel model)
         {
@@ -74,7 +71,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Kurs Silme
         public async Task<IActionResult> CourseDelete(int courseId)
         {
             var deleteCourseResult = await courseService.DeleteCourseAsync(courseId);

@@ -31,16 +31,13 @@ namespace MiniCourse.WebUI.Orders
 
         public async Task<ServiceResult<List<OrderResponse>>> GetOrdersByUserIdAsync()
         {
-            // Kullanıcı ID'sini al
             var userId = httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId is null)
                 return ServiceResult<List<OrderResponse>>.Fail("Kullanıcı bulunamadı.");
 
-            // API adresi
             var address = $"/api/Orders/get-orders-by-userid?userId={userId}";
 
-            // GET isteği gönder
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -49,7 +46,6 @@ namespace MiniCourse.WebUI.Orders
                 return ServiceResult<List<OrderResponse>>.Fail(problemDetail!.Detail!);
             }
 
-            // Sipariş listesi
             var orders = await response.Content.ReadFromJsonAsync<List<OrderResponse>>();
 
 

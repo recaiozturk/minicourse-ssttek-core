@@ -9,20 +9,17 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class CategoriesController(ICategoryService categoryService) : Controller
     {
-        // Kategori Listeleme
         public async Task<IActionResult> Index()
         {
             var categoriesResult = await categoryService.GetCategoriesAsync();
             return View(categoriesResult.Data);
         }
 
-        // Kategori Oluşturma - GET
         public IActionResult CategoryCreate()
         {
             return View();
         }
 
-        // Kategori Oluşturma - POST
         [HttpPost]
         public async Task<IActionResult> CategoryCreate(CategoryCreateViewModel model)
         {
@@ -40,7 +37,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Kategori Güncelleme - GET
         public async Task<IActionResult> CategoryUpdate(int categoryId)
         {
             var categoryResult = await categoryService.GetCategoryAsync(categoryId);
@@ -55,7 +51,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return View(categoryResult.Data);
         }
 
-        // Kategori Güncelleme - POST
         [HttpPost]
         public async Task<IActionResult> CategoryUpdate(CategoryUpdateViewModel model)
         {
@@ -73,7 +68,6 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Kategori Silme
         public async Task<IActionResult> CategoryDelete(int categoryId)
         {
             var deleteCategoryResult = await categoryService.DeleteCategoryAsync(categoryId);

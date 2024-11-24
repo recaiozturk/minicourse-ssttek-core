@@ -76,21 +76,6 @@ namespace MiniCourse.WebUI.Auths
 
         }
 
-        //public string GetAccessTokenFromCookie()
-        //{
-        //    // Cookie'den access token'ı al
-        //    var accessToken = httpContextAccessor.HttpContext?.Request.Cookies["access_token"];
-
-        //    if (string.IsNullOrEmpty(accessToken))
-        //    {
-        //        // Token yoksa login sayfasına yönlendir
-        //        httpContextAccessor.HttpContext.Response.Redirect("/");
-        //        //Response.Redirect("/Login");
-        //    }
-
-        //    return accessToken;
-        //}
-
         public async Task<ServiceResult<SignInResponse>> GetClientCredentialToken()
         {  
             var clientCredentialTokenRequest = new ClientCredentialTokenRequest(

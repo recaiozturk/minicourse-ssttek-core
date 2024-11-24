@@ -11,13 +11,17 @@ namespace MiniCourse.WebUI.Controllers
             return View(coursesPagedResult.Data);
         }
 
-
-
         public IActionResult AccessDenied()
         {
             return View();
         }
 
-        
+        public IActionResult Error(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
+
+
     }
 }

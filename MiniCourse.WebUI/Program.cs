@@ -5,9 +5,11 @@ using MiniCourse.WebUI.Baskets;
 using MiniCourse.WebUI.Categories;
 using MiniCourse.WebUI.Courses;
 using MiniCourse.WebUI.Extensions.Extensions;
+using MiniCourse.WebUI.Filters;
 using MiniCourse.WebUI.Handlers;
 using MiniCourse.WebUI.Hubs;
 using MiniCourse.WebUI.Members;
+using MiniCourse.WebUI.NLogs;
 using MiniCourse.WebUI.Orders;
 using MiniCourse.WebUI.Payments;
 using MiniCourse.WebUI.Roles;
@@ -21,6 +23,11 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddSignalR(); // SignalR 
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GlobalExceptionFilter>();
+});
 
 builder.Services.AddHttpContextAccessor();
 
@@ -91,6 +98,11 @@ builder.Services.AddHttpClient<IPaymentService,PaymentService>(x =>
     x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
 }).AddHttpMessageHandler<ClientCredentialHandler>();
 
+builder.Services.AddHttpClient<INLogService, NLogService>(x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
+}).AddHttpMessageHandler<ClientCredentialHandler>();
+
 
 builder.Services.AddControllersWithViews(options =>
 {
@@ -103,8 +115,6 @@ builder.Services.AddFluentExt(builder.Configuration);
 builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<ClientCredentialHandler>();
-
-
 
 
 var app = builder.Build();

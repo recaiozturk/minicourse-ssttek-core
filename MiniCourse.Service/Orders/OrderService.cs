@@ -15,19 +15,17 @@ namespace MiniCourse.Service.Orders
     {
         public async Task<ApiServiceResult<OrderResponse>> CreateOrderAsync(string userId)
         {
-            // Kullanıcıya ait sepeti al
             var basket = await basketRepository.GetBasketByUserIdAsync(userId);
 
             if (basket == null || !basket.Items.Any())
                 return ApiServiceResult<OrderResponse>.Fail("Sepetiniz boş. Sipariş oluşturulamadı.", HttpStatusCode.BadRequest);
 
-            // Sipariş oluşturma
             var order = new Order
             {
                 UserId = Guid.Parse(userId),
                 CreatedDate = DateTime.UtcNow,
                 TotalAmount = basket.Items.Sum(item => item.Quantity * item.Course.Price),
-                OrderStatus = (int)OrderStatus.Pending, // Sipariş durumu "Beklemede" olarak ayarlanıyor
+                OrderStatus = (int)OrderStatus.Pending,
                 OrderDetails = basket.Items.Select(item => new OrderDetail
                 {
                     CourseId = item.CourseId,
@@ -36,16 +34,13 @@ namespace MiniCourse.Service.Orders
                 }).ToList()
             };
 
-            // Siparişi veritabanına ekle
             await orderRepository.AddAsync(order);
 
-            // Sepeti temizle
+            // ileriki asamada temizlesek daha saglikli
             //await basketRepository.DeleteBasketAsync(basket.Id);
 
-            // Veritabanı işlemlerini kaydet
             await unitOfWork.CommitAsync();
 
-            // Yanıt oluştur
             var orderResponse = new OrderResponse
             {
                 OrderId = order.Id,
@@ -71,23 +66,6 @@ namespace MiniCourse.Service.Orders
             if (orders == null || !orders.Any())
                 return ApiServiceResult<List<OrderResponse>>.Fail("Sipariş bulunamadı.",HttpStatusCode.NotFound);
 
-            //var orderResponses = orders.Select(o => new OrderResponse
-            //{
-            //    OrderId = o.Id,
-            //    TotalPrice = o.TotalAmount,
-            //    CreatedDate = o.CreatedDate,
-            //    OrderStatus = o.OrderStatus,
-            //    OrderDetails = o.OrderDetails.Select(od => new OrderDetailResponse
-            //    {
-            //        CourseId = od.CourseId,
-            //        Quantity = od.Quantity,
-            //        UnitPrice = od.UnitPrice
-            //    }).ToList()
-            //}).ToList();
-
-
-
-
             var courseIds = orders.SelectMany(o => o.OrderDetails.Select(od => od.CourseId)).Distinct();
             var courses = (await courseService.GetCoursesAsync()).Data;
 
@@ -106,8 +84,6 @@ namespace MiniCourse.Service.Orders
                     CourseResponse = courses.FirstOrDefault(c => c.Id == od.CourseId)
                 }).ToList()
             }).OrderByDescending(x=>x.CreatedDate).ToList();
-
-
 
             return ApiServiceResult<List<OrderResponse>>.Success(orderResponses,HttpStatusCode.OK);
 

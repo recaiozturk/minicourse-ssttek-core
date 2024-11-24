@@ -10,9 +10,7 @@ namespace MiniCourse.Repository.Courses
         public string Description { get; set; } = default!;
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-
         public string? CourseImage { get; set; }
-
         public Category Category { get; set; }
     }
 }
