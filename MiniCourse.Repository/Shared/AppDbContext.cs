@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniCourse.Repository.Baskets;
 using MiniCourse.Repository.Categories;
 using MiniCourse.Repository.Courses;
+using MiniCourse.Repository.Logs;
 using MiniCourse.Repository.OrderDetails;
 using MiniCourse.Repository.Orders;
 using MiniCourse.Repository.Payments;
@@ -20,6 +21,7 @@ namespace MiniCourse.Repository.Shared
         public DbSet<Payment> Payments { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Log> Log { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

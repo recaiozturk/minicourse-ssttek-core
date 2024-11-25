@@ -64,7 +64,7 @@ namespace MiniCourse.Service.Orders
 
 
             if (orders == null || !orders.Any())
-                return ApiServiceResult<List<OrderResponse>>.Fail("Sipariş bulunamadı.",HttpStatusCode.NotFound);
+                return ApiServiceResult<List<OrderResponse>>.Success(new List<OrderResponse>(),HttpStatusCode.OK);
 
             var courseIds = orders.SelectMany(o => o.OrderDetails.Select(od => od.CourseId)).Distinct();
             var courses = (await courseService.GetCoursesAsync()).Data;

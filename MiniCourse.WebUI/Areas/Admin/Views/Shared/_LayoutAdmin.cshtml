@@ -35,19 +35,19 @@
             <div class="border-top my-3"></div>
             <ul class="list-unstyled ps-0">
                 @*<li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#orders-collapse"
-                            aria-expanded="false">
-                        Siparişler
-                    </button>
-                    <div class="collapse" id="orders-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
-                            <li><a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="link-dark rounded">Kullanıcı Ekle</a></li>
-                        </ul>
-                    </div>
-                </li>*@
+            <button class="btn btn-toggle align-items-center rounded collapsed"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#orders-collapse"
+                    aria-expanded="false">
+                Siparişler
+            </button>
+            <div class="collapse" id="orders-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a asp-area="Admin" asp-controller="Users" asp-action="UserList" class="link-dark rounded">Tüm Kullanıcılar</a></li>
+                    <li><a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="link-dark rounded">Kullanıcı Ekle</a></li>
+                </ul>
+            </div>
+        </li>*@
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed"
                             data-bs-toggle="collapse"
@@ -101,6 +101,19 @@
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="link-dark rounded">Tüm Roller</a></li>
                             <li><a asp-area="Admin" asp-controller="Roles" asp-action="RoleCreate" class="link-dark rounded">Rol Ekle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#log-collapse"
+                            aria-expanded="false">
+                        Log Kayitlari
+                    </button>
+                    <div class="collapse" id="log-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a asp-area="Admin" asp-controller="Log" asp-action="Index" class="link-dark rounded">Tüm Log Kayıtlari</a></li>
                         </ul>
                     </div>
                 </li>

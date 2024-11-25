@@ -7,6 +7,8 @@ using MiniCourse.WebUI.Shared;
 using MiniCourse.WebUI.Util;
 using MiniCourse.WebUI.NLogs.ViewModels;
 using System;
+using MiniCourse.WebUI.Roles.ViewModels;
+using MiniCourse.WebUI.NLogs.DTOs;
 
 namespace MiniCourse.WebUI.NLogs
 {
@@ -26,22 +28,6 @@ namespace MiniCourse.WebUI.NLogs
                 LoggedAt=DateTime.Now,
             };
 
-
-            //HttpResponseMessage message;
-
-
-            //try
-            //{
-            //    message = await client.PostAsJsonAsync(address, errorDto);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw;
-            //}
-
-
-            //burdayiz
-
             var response = await client.PostAsJsonAsync(address, errorDto);
 
             if (!response.IsSuccessStatusCode)
@@ -52,5 +38,43 @@ namespace MiniCourse.WebUI.NLogs
 
             return ServiceResult<ErrorLogDto>.Success(errorDto);
         }
+
+        public async Task<ServiceResult<List<LogViewModel>>> GetLogsAsync()
+        {
+            var address = "/api/nlog/get-logs";
+            var response = await client.GetAsync(address);
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult<List<LogViewModel>>.Fail(problemDetail!.Detail!);
+            }
+
+            var logs = await response.Content.ReadFromJsonAsync<List<LogViewModel>>();
+
+            return ServiceResult<List<LogViewModel>>.Success(logs);
+
+        }
+
+        public async Task<ServiceResult> DeleteLogAsync(int logId)
+        {
+            var address = $"/api/NLog/delete-log?logId={logId}";
+
+            var response = await client.DeleteAsync(address);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                return ServiceResult.Fail(problemDetail!.Detail!);
+            }
+
+            var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+            tempData["SuccessMessage"] = "Log başarıyla silindi.";
+
+            return ServiceResult.Success();
+        }
+
+
     }
 }

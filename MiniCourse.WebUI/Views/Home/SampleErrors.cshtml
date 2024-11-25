@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "SampleErrors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-md-4 offset-md-4">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">!!!Örnek Hatalar!!!</h4>
+            <hr>
+            <a asp-controller="Home" asp-action="DivideByZeroError" class="w-100 btn btn-outline-dark btn-lg" type="submit">
+                <span id="buttonText">Divide by zero error</span>
+            </a>
+
+            <a asp-controller="Home" asp-action="NullReferenceException" class="w-100 btn btn-outline-dark btn-lg mt-3" type="submit">
+                <span id="buttonText">Null Reference Exception error</span>
+            </a>
+        </div>
+    </div>
+</div>
+

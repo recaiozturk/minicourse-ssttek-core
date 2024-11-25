@@ -22,6 +22,29 @@ namespace MiniCourse.WebUI.Controllers
             return View();
         }
 
+        public IActionResult SampleErrors()
+        {
+            return View();
+        }
+        public IActionResult DivideByZeroError()
+        {
+            int x = 3;
+            int y = 0;
+            var result = x / y;
+            return View();
+        }
+        public IActionResult NullReferenceException()
+        {
+            string? nullString = null;
+            int stringLength = nullString.Length;
+
+            return View();
+        }
+
+        
+
+
+
 
     }
 }

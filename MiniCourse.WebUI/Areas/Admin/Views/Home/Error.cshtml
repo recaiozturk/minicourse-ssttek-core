@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Hata Meydana Geldi!!!</h4>
+                <p>Daha sonra tekrar deneyin</p>
+                <hr>
+                <a asp-controller="Home" asp-action="Index" class="w-100 btn btn-outline-dark btn-lg" type="submit">
+                    <span id="buttonText">AnaSayfaya Dön</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

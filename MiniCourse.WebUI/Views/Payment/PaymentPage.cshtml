@@ -76,7 +76,7 @@
                 <hr class="my-4">
 
                 <button id="paymentButton" class="w-100 btn btn-outline-dark btn-lg" type="submit">
-                    <div class="spinner-border spinner-border-sm d-none" id="buttonSpinner" role="status" aria-hidden="true"></div>
+                    <div class="spinner-border spinner-border-sm d-none" id="buttonSpinnerPayment" role="status" aria-hidden="true"></div>
                     <span id="buttonText">Ödeme Yap</span>
 
                 </button>
@@ -93,7 +93,7 @@
 
             });
             $("#paymentButton").prop("disabled", false);
-            $("#buttonSpinner").css("display", "none");
+            $("#buttonSpinnerPayment").css("display", "none");
         </script>
     }
 }
@@ -108,7 +108,7 @@
             $("#paymentForm").on("submit", function (e) {
                 var $form = $(this);
                 var $button = $("#paymentButton");
-                var $spinner = $("#buttonSpinner");
+                var $spinner = $("#buttonSpinnerPayment");
                 var $buttonText = $("#buttonText");
 
                 if (!$form.valid()) {

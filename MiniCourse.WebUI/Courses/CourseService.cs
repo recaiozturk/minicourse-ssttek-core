@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using MiniCourse.WebUI.Baskets.DTOs;
-using MiniCourse.WebUI.Baskets.ViewModels;
 using MiniCourse.WebUI.Courses.DTOs;
 using MiniCourse.WebUI.Courses.ViewModels;
 using MiniCourse.WebUI.Shared;
 using MiniCourse.WebUI.Util;
 using MiniCourse.WebUI.ViewModels;
-using System.Security.Claims;
 
 namespace MiniCourse.WebUI.Courses
 {

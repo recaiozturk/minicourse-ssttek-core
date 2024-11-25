@@ -13,5 +13,11 @@ namespace MiniCourse.WebUI.Areas.Admin.Controllers
             var test = userService.GetUsersAsync();
             return View();
         }
+
+        public IActionResult Error(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
     }
 }

@@ -108,8 +108,8 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("6e373459-d809-42eb-958c-766d48b7fe03"),
-                            RoleId = new Guid("c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a")
+                            UserId = new Guid("17523f77-393d-4790-b014-5c3604229a45"),
+                            RoleId = new Guid("3c6455b7-3373-463b-b6e9-7fa5f9c5fcbb")
                         });
                 });
 
@@ -228,6 +228,37 @@ namespace MiniCourse.Repository.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("MiniCourse.Repository.Logs.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Logged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Logger")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("MiniCourse.Repository.OrderDetails.OrderDetail", b =>
@@ -359,15 +390,15 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a"),
-                            ConcurrencyStamp = "c10f8800-7f91-4ea0-bf36-4b1a70b7ea8a",
+                            Id = new Guid("3c6455b7-3373-463b-b6e9-7fa5f9c5fcbb"),
+                            ConcurrencyStamp = "3c6455b7-3373-463b-b6e9-7fa5f9c5fcbb",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("b149818b-4706-4612-b4b8-970d3e0d4ca1"),
-                            ConcurrencyStamp = "b149818b-4706-4612-b4b8-970d3e0d4ca1",
+                            Id = new Guid("fd6fb167-9d7e-4591-b5de-45218ece00d8"),
+                            ConcurrencyStamp = "fd6fb167-9d7e-4591-b5de-45218ece00d8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -447,17 +478,17 @@ namespace MiniCourse.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6e373459-d809-42eb-958c-766d48b7fe03"),
+                            Id = new Guid("17523f77-393d-4790-b014-5c3604229a45"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96fdc9d1-8638-4a10-bd3f-5cca6e90e544",
+                            ConcurrencyStamp = "0e9619bc-1e9d-41b6-980a-f05f96eadbc8",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJvSXvN/Al73bW52IXDft/7/wRqUC0UEL2Wuo3PHVrPz/OMLeeW5RhtyeK/X67f1XA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG22iBnTzBaV4JOExCM8OCwi+l1PXQVcUY8ExKEqg8BS2x7vO7vspZL+rTuOnD0hdg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d1116fa-6e64-4c18-be22-500e5caeb8e8",
+                            SecurityStamp = "ab349826-e5a8-488a-b160-49ee06b71cd9",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
