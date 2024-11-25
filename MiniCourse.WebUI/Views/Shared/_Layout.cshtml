@@ -21,8 +21,6 @@
                         @await Component.InvokeAsync("CatDropDown")
                     </li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Courses" asp-action="Index">Kurslar</a></li>
-                    @*<li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Home" asp-action="Index">AdminSideTest</a></li>*@
-
 
                     <form class="d-flex" role="search">
                         <input autocomplete="off" id="headerSearch" class="form-control me-2 border-gray  header-search" type="search" placeholder="Kurs Ara" aria-label="Search">
@@ -36,6 +34,10 @@
                     <form class="d-flex">
                         <a asp-controller="Basket" asp-action="Index" class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
+                            <i class="bi bi-basket3-fill"></i>
+                            <svg class="mx-1 mb-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
+                                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
+                            </svg>
                             Sepet
                             @await Component.InvokeAsync("BasketCount")
                         </a>
@@ -127,9 +129,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>*@
     <script src="~/microsoft-signalr/signalr.min.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>*@
     <script src="~/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/search.js"></script>
