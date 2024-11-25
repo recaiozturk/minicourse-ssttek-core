@@ -6,45 +6,57 @@
 
 @model CoursesPagedModel
 
-<div class="container px-4 px-lg-5 mt-5">
-    <h1 class="mb-3 text-center">@Model.CourseTitle</h1>
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <style>
+        .pagination .page-item.active .page-link {
+            background-color:darkgray;
+            border-color: unset;
+            color: white;
+        }
 
-        @if (Model.Courses.Any())
-        {
-            @foreach (var course in Model.Courses)
+        .pagination .page-link {
+            color: darkgray;
+        }
+    </style>
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <h1 class="mb-3 text-center">@Model.CourseTitle</h1>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            @if (Model.Courses.Any())
             {
-                <div class="col mb-5">
-                    <div class="card h-100 shadow-sm">
-                        <img class="card-img-top" src="~/img/@course.CourseImage" alt="..." />
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <a class="text-decoration-none text-black" asp-controller="Courses" asp-action="Detail" asp-route-courseId="@course.Id"><h5 class="fw-bolder">@course.Title</h5></a>
-                                @course.Price  ₺
+                @foreach (var course in Model.Courses)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <img class="card-img-top" src="~/img/@course.CourseImage" alt="..." />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <a class="text-decoration-none text-black" asp-controller="Courses" asp-action="Detail" asp-route-courseId="@course.Id"><h5 class="fw-bolder">@course.Title</h5></a>
+                                    @course.Price  ₺
+                                </div>
+                            </div>
+                            <p class="text-center">@course.Category.Name</p>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto add-to-basket" data-course-id="@course.Id">Sepete Ekle</a></div>
                             </div>
                         </div>
-                        <p class="text-center">@course.Category.Name</p>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto add-to-basket" data-course-id="@course.Id">Sepete Ekle</a></div>
-                        </div>
                     </div>
-                </div>
+                }
             }
-        }
 
+        </div>
     </div>
-</div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination d-flex justify-content-center">
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            var isActive = (i == ViewBag.CurrentPage) ? "active" : "";
+    <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                var isActive = (i == ViewBag.CurrentPage) ? "active" : "";
 
-            <li class="page-item @isActive"><a class="page-link" asp-controller="Courses" asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
-        }
-    </ul>
-</nav>
+                <li class="page-item @isActive"><a class="page-link" asp-controller="Courses" asp-action="Index" asp-route-catId="@ViewBag.CurrentCatId" asp-route-pageNumber="@i">@i</a></li>
+            }
+        </ul>
+    </nav>
 
 
 

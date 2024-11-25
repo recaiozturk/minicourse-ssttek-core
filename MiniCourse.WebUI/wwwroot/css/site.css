@@ -17,9 +17,9 @@ html {
   min-height: 100%;
 }
 
-body {
+/*body {
   margin-bottom: 60px;
-}
+}*/
 
 .header-search {
     margin-left: 30px;
@@ -27,23 +27,18 @@ body {
 }
 
 .btn-outline-dark {
-    background-color: #343a40; /* Siyah arka plan */
-    color: #fff; /* Beyaz yazý */
-    border-color: #343a40; /* Siyah kenar */
+    background-color: #343a40; 
+    color: #fff; 
+    border-color: #343a40; 
 }
 
     .btn-outline-dark:hover {
-        background-color: #fff; /* Beyaz arka plan */
-        color: #343a40; /* Siyah yazý */
-        border-color: #343a40; /* Siyah kenar */
+        color: #343a40; 
+        border-color: #343a40; 
     }
 
 .foot-fix {
     padding: 10px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
 }
 
 

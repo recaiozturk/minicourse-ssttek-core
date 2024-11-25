@@ -9,6 +9,7 @@ namespace MiniCourse.WebUI.Controllers
         {
             var coursesPagedResult = await courseService.PrepareListPageAsync(pageNumber, pageSize,catId);
             ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentCatId = catId;
             return View(coursesPagedResult.Data);
         }
 
