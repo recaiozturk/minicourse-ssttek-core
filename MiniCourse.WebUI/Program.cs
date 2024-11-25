@@ -1,19 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
-using MiniCourse.WebUI.Auths;
-using MiniCourse.WebUI.Baskets;
-using MiniCourse.WebUI.Categories;
-using MiniCourse.WebUI.Courses;
+using MiniCourse.WebUI.Extensions;
 using MiniCourse.WebUI.Extensions.Extensions;
 using MiniCourse.WebUI.Filters;
 using MiniCourse.WebUI.Handlers;
 using MiniCourse.WebUI.Hubs;
-using MiniCourse.WebUI.Members;
-using MiniCourse.WebUI.NLogs;
-using MiniCourse.WebUI.Orders;
-using MiniCourse.WebUI.Payments;
-using MiniCourse.WebUI.Roles;
-using MiniCourse.WebUI.Users;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,60 +40,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 
-
-
-
-builder.Services.AddHttpClient<IAuthService, AuthService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-});
-
-builder.Services.AddHttpClient<IUserService, UserService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-
-builder.Services.AddHttpClient<IRoleService, RoleService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>(); ;
-
-builder.Services.AddHttpClient<IMemberService, MemberService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<ICategoryService, CategoryService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<ICourseService, CourseService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<IBasketService, BasketService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<IOrderService, OrderService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<IPaymentService,PaymentService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
-builder.Services.AddHttpClient<INLogService, NLogService>(x =>
-{
-    x.BaseAddress = new Uri(builder.Configuration.GetSection("ApiOption")["BaseAddress"]!);
-}).AddHttpMessageHandler<ClientCredentialHandler>();
-
+builder.Services.AddHttpClientExt(builder.Configuration);
 
 builder.Services.AddControllersWithViews(options =>
 {
