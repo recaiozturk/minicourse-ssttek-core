@@ -10,43 +10,47 @@ using System;
 
 namespace MiniCourse.WebUI.NLogs
 {
-    public class NLogService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) :INLogService
+    public class NLogService(HttpClient client, IHttpContextAccessor httpContextAccessor, ITempDataDictionaryFactory tempDataDictionaryFactory, IConfiguration configuration) : INLogService
     {
-        public async Task<ServiceResult> LogErrorToApi(ExceptionViewModel exceptionModel)
+        public async Task<ServiceResult<ErrorLogDto>> LogErrorToApi(ExceptionViewModel exceptionModel)
         {
 
-            var address = "/api/Nlog/save-error-log";
+            var address = "/api/nlog/save-error-log";
 
-            //var response = await client.PostAsJsonAsync(address, exceptionModel);
 
-            //
-            try
+            var errorDto = new ErrorLogDto
             {
-                var response2 = await client.PostAsJsonAsync(address, exceptionModel);
-            }
-            catch (Exception e)
-            {
-                //!!!! Exception i serialize etmiyor paketleyip gönderrrrr
-                throw;
-            }
-            //
+                Message = exceptionModel.Exception.Message,
+                StackTrace = exceptionModel.Exception.StackTrace,
+                Source = exceptionModel.Exception.Source,
+                LoggedAt=DateTime.Now,
+            };
 
-            ErrorLogDto errorDto = new ErrorLogDto();
 
-            //errorDto.Message = exceptionModel.Exception.Message
-            //errorDto.Source=exceptionModel.Exception.Source,
-            //StackTrace = ex
-            //Source = ex.Source
+            //HttpResponseMessage message;
 
-            var response = await client.PostAsJsonAsync(address, exceptionModel);
+
+            //try
+            //{
+            //    message = await client.PostAsJsonAsync(address, errorDto);
+            //}
+            //catch (Exception e)
+            //{
+            //    throw;
+            //}
+
+
+            //burdayiz
+
+            var response = await client.PostAsJsonAsync(address, errorDto);
 
             if (!response.IsSuccessStatusCode)
             {
                 var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-                return ServiceResult.Fail(problemDetail!.Detail!);
+                return ServiceResult<ErrorLogDto>.Fail(problemDetail!.Detail!);
             }
 
-            return ServiceResult.Success();
+            return ServiceResult<ErrorLogDto>.Success(errorDto);
         }
     }
 }

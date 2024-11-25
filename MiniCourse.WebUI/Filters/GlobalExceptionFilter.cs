@@ -12,7 +12,7 @@ namespace MiniCourse.WebUI.Filters
             var exception = context.Exception;
 
             logger.LogError(exception, "Hata!");
-            nLogService.LogErrorToApi(new ExceptionViewModel { Exception = exception });
+            nLogService.LogErrorToApi(new ExceptionViewModel { Exception = exception }) ;
             var result = new RedirectToActionResult("Error", "Home", new { message = exception.Message });
 
             context.Result = result;

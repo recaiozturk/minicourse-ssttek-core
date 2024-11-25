@@ -26,7 +26,6 @@ namespace MiniCourse.Service.Extensions
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<INlogService, NlogService>();
 
             return services;
         }

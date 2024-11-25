@@ -5,6 +5,6 @@ namespace MiniCourse.WebUI.NLogs
 {
     public interface INLogService
     {
-        Task<ServiceResult> LogErrorToApi(ExceptionViewModel exceptionModel);
+        Task<ServiceResult<ErrorLogDto>> LogErrorToApi(ExceptionViewModel exceptionModel);
     }
 }
