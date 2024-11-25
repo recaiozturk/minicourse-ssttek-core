@@ -79,7 +79,7 @@ namespace MiniCourse.WebUI.Baskets
             if(userId is null)
             {
                 var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
-                tempData["InfoMessage"] = $"Sepetinizdce işlem yapabilmeniz için Lütfen giriş yapınız";
+                tempData["InfoMessage"] = $"Sepetinizde işlem yapabilmeniz için Lütfen giriş yapınız";
                 return ServiceResult<BasketDetailViewModel>.Fail("");
             }
                 

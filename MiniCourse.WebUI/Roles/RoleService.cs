@@ -17,7 +17,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult<RoleUpdateViewModel>> GetRoleAsync(string roleId)
         {
-            var address = $"/api/Roles/getrole?roleId={roleId}";
+            var address = $"/api/Roles/get-role?roleId={roleId}";
 
             var response = await client.GetAsync(address);
 
@@ -38,7 +38,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult<List<RoleViewModel>>> GetRolesAsync()
         {
-            var address = "/api/Roles/getroles";
+            var address = "/api/Roles/get-roles";
             var response = await client.GetAsync(address);
 
 
@@ -66,7 +66,7 @@ namespace MiniCourse.WebUI.Users
         }
         public async Task<ServiceResult<List<RoleViewModel>>> GetRolesByUserAsync(string userId)
         {
-            var address = $"/api/Roles/getrolesbyuserid?userId={userId}";
+            var address = $"/api/Roles/get-roles-by-user-id?userId={userId}";
 
             var response = await client.GetAsync(address);
 
@@ -95,7 +95,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> CreateRoleAsync(RoleCreateViewModel model)
         {
-            var address = "/api/Roles/createrole";
+            var address = "/api/Roles/create-role";
 
             var response = await client.PostAsJsonAsync(address, model);
 
@@ -116,7 +116,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> UpdateRoleAsync(RoleUpdateViewModel model)
         {
-            var address = "/api/Roles/updaterole";
+            var address = "/api/Roles/update-role";
 
             var response = await client.PutAsJsonAsync(address, model);
 
@@ -135,7 +135,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> DeleteRoleAsync(string roleId)
         {
-            var address = $"/api/Roles/deleterole?roleId={roleId}";
+            var address = $"/api/Roles/delete-role?roleId={roleId}";
 
             var response = await client.DeleteAsync(address);
 
@@ -172,7 +172,7 @@ namespace MiniCourse.WebUI.Users
         }
         public async Task<ServiceResult> AssignRoleToUserAsync(string userId, List<AssignRoleToUserViewModel> requestList)
         {
-            var address = $"/api/Roles/assignRoleToUser?userId={userId}";
+            var address = $"/api/Roles/assign-Role-To-User?userId={userId}";
 
             var response = await client.PostAsJsonAsync(address, requestList);
 

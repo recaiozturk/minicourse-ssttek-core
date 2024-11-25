@@ -9,35 +9,35 @@ namespace MiniCourse.API.Controllers
     [Authorize]
     public class UsersController(IUserService userService) : CustomControllerBase
     {
-        [HttpGet("getusers")]
+        [HttpGet("get-users")]
         public async Task<IActionResult> GetUsersAsync()
         {
             var result = await userService.GetUsersAsync();
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getuser")]
+        [HttpGet("get-user")]
         public async Task<IActionResult> GetUserAsync(string userId)
         {
             var result = await userService.GetUserAsync(userId);
             return CreateObjectResult(result);
         }
 
-        [HttpPost("createuser")]
+        [HttpPost("create-user")]
         public async Task<IActionResult> CreateUsersAsync(CreateUserRequest request)
         {
             var result = await userService.CreateUsersAsync(request);
             return CreateObjectResult(result);
         }
 
-        [HttpPut("updateuser")]
+        [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUsersAsync(UpdateUserRequest request)
         {
             var result = await userService.UpdateUsersAsync(request);
             return CreateObjectResult(result);
         }
 
-        [HttpDelete("deleteuser")]
+        [HttpDelete("delete-user")]
         public async Task<IActionResult> DeleteUsersAsync(string userId)
         {
             var result = await userService.DeleteUsersAsync(userId);

@@ -14,7 +14,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult<CourseResponse>> GetCourseWithCategoryAsync(int courseId)
         {
-            var address = $"/api/Courses/getcoursewithcategory?courseId={courseId}";
+            var address = $"/api/Courses/get-course-with-category?courseId={courseId}";
 
             var response = await client.GetAsync(address);
 
@@ -31,7 +31,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult<CourseUpdateViewModel>> GetCourseAsync(int courseId)
         {
-            var address = $"/api/Courses/getcourse?courseId={courseId}";
+            var address = $"/api/Courses/get-course?courseId={courseId}";
 
             var response = await client.GetAsync(address);
 
@@ -60,7 +60,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult<List<CourseViewModel>>> GetCoursesAsync()
         {
-            var address = "/api/Courses/getcourses";
+            var address = "/api/Courses/get-courses";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -76,7 +76,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult<CoursesPagedModel>> PrepareListPageAsync(int pageNumber, int pageSize,int catId)
         {
-            var address =  $"/api/Courses/getcoursespaged?pageNumber={pageNumber}&pageSize={pageSize}&catId={catId}";
+            var address =  $"/api/Courses/get-courses-paged?pageNumber={pageNumber}&pageSize={pageSize}&catId={catId}";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -98,7 +98,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult<HomeViewModel>> PrepareHomeListPageAsync()
         {
-            var address = $"/api/Courses/getcourseswithcategory";
+            var address = $"/api/Courses/get-courses-with-category";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -120,7 +120,7 @@ namespace MiniCourse.WebUI.Courses
             if (model.ImageFile != null && model.ImageFile.Length > 0)
                 model.CourseImage = ImageHelper.AddImageAsync(model.ImageFile).Result;
 
-            var address = "/api/Courses/createcourse";
+            var address = "/api/Courses/create-course";
 
             var response = await client.PostAsJsonAsync(address, model);
 
@@ -146,7 +146,7 @@ namespace MiniCourse.WebUI.Courses
                 model.CourseImage = ImageHelper.AddImageAsync(model.ImageFile).Result;
             }
 
-            var address = "/api/Courses/updatecourse";
+            var address = "/api/Courses/update-course";
 
             var response = await client.PutAsJsonAsync(address, model);
 
@@ -164,7 +164,7 @@ namespace MiniCourse.WebUI.Courses
 
         public async Task<ServiceResult> DeleteCourseAsync(int courseId)
         {
-            var address = $"/api/Courses/deletecourse?courseId={courseId}";
+            var address = $"/api/Courses/delete-course?courseId={courseId}";
 
             var response = await client.DeleteAsync(address);
 

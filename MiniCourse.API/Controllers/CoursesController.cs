@@ -6,63 +6,63 @@ namespace MiniCourse.API.Controllers
 {
     public class CoursesController(ICourseService courseService) : CustomControllerBase
     {
-        [HttpGet("getcourses")]
+        [HttpGet("get-courses")]
         public async Task<IActionResult> GetCoursesAsync()
         {
             var result = await courseService.GetCoursesAsync();
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcourseswithcategory")]
+        [HttpGet("get-courses-with-category")]
         public async Task<IActionResult> GetCoursesWithCategory()
         {
             var result = await courseService.GetCoursesWithCategoryAsync();
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcoursespaged")]
+        [HttpGet("get-courses-paged")]
         public async Task<IActionResult> GetCoursesPagedAsync(int pageNumber,int pageSize, int catId)
         {
             var result = await courseService.GetCoursesPagedAsync(pageNumber, pageSize, catId);
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcoursesbycategory")]
+        [HttpGet("get-courses-by-category")]
         public async Task<IActionResult> GetCoursesByCategoryAsync(int catId)
         {
             var result = await courseService.GetCoursesByCategoryAsync(catId);
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcourse")]
+        [HttpGet("get-course")]
         public async Task<IActionResult> GetCourseAsync(int courseId)
         {
             var result = await courseService.GetCourseAsync(courseId);
             return CreateObjectResult(result);
         }
 
-        [HttpGet("getcoursewithcategory")]
+        [HttpGet("get-course-with-category")]
         public async Task<IActionResult> GetCourseWithCategoryAsync(int courseId)
         {
             var result = await courseService.GetCourseWithCategoryAsync(courseId);
             return CreateObjectResult(result);
         }
 
-        [HttpPost("createcourse")]
+        [HttpPost("create-course")]
         public async Task<IActionResult> CreateCourseAsync(CreateCourseRequest request)
         {
             var result = await courseService.CreateCourseAsync(request);
             return CreateObjectResult(result);
         }
 
-        [HttpPut("updatecourse")]
+        [HttpPut("update-course")]
         public async Task<IActionResult> UpdateCourseAsync(UpdateCourseRequest request)
         {
             var result = await courseService.UpdateCourseAsync(request);
             return CreateObjectResult(result);
         }
 
-        [HttpDelete("deletecourse")]
+        [HttpDelete("delete-course")]
         public async Task<IActionResult> DeleteCourseAsync(int courseId)
         {
             var result = await courseService.DeleteCourseAsync(courseId);

@@ -7,7 +7,7 @@ namespace MiniCourse.API.Controllers
 {
     public class AuthController(IAuthService authService) : CustomControllerBase
     {
-        [HttpPost("signin")]
+        [HttpPost("sign-in")]
         public async Task<IActionResult> SignInAsync(SignInRequest request)
         {
             var result = await authService.SignInAsync(request);
@@ -15,7 +15,7 @@ namespace MiniCourse.API.Controllers
             return CreateObjectResult(result);
         }
 
-        [HttpPost("signup")]
+        [HttpPost("sign-up")]
         public async Task<IActionResult> SignUpAsync(SignUpRequest request)
         {
             var result = await authService.SignUpAsync(request);

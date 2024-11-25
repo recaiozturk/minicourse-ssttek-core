@@ -15,7 +15,7 @@ namespace MiniCourse.WebUI.Auths
     {
         public async Task<ServiceResult> SignInAsync(SignInViewModel model)
         {
-            var address = "/api/Auth/signin";
+            var address = "/api/Auth/sign-in";
 
             var response = await client.PostAsJsonAsync<SignInViewModel>(address, model);
 
@@ -59,7 +59,7 @@ namespace MiniCourse.WebUI.Auths
 
         public async Task<ServiceResult> SignUpAsync(SignUpViewModel viewModel)
         {
-            var address = "/api/Auth/signup";
+            var address = "/api/Auth/sign-up";
 
             var response = await client.PostAsJsonAsync<SignUpViewModel>(address, viewModel);
 

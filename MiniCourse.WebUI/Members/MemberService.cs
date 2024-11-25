@@ -12,7 +12,7 @@ namespace MiniCourse.WebUI.Members
         
         public async Task<ServiceResult> UpdateMemberProfileAsync(MemberProfileUpdateViewModel model)
         {
-            var address = "/api/Members/updatemember";
+            var address = "/api/Members/update-member";
 
             model.UserId= httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -35,7 +35,7 @@ namespace MiniCourse.WebUI.Members
         {
             var currentUSerId= httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var address = $"/api/Members/getuserprofile?userId={currentUSerId}";
+            var address = $"/api/Members/get-user-profile?userId={currentUSerId}";
 
             var response = await client.GetAsync(address);
 
@@ -53,7 +53,7 @@ namespace MiniCourse.WebUI.Members
         {
             var currentUSerId = httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var address = $"/api/Members/getuserprofile?userId={currentUSerId}";
+            var address = $"/api/Members/get-user-profile?userId={currentUSerId}";
 
             var response = await client.GetAsync(address);
 
@@ -75,7 +75,7 @@ namespace MiniCourse.WebUI.Members
             var currentUSerId = httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
             model.UserId = currentUSerId;
 
-            var address = $"/api/Members/changepassword";
+            var address = $"/api/Members/change-password";
 
             var response = await client.PutAsJsonAsync(address,model);
 

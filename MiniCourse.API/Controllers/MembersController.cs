@@ -8,14 +8,14 @@ namespace MiniCourse.API.Controllers
     [Authorize]
     public class MembersController(IMemberService memberService) : CustomControllerBase
     {
-        [HttpGet("getuserprofile")]
+        [HttpGet("get-user-profile")]
         public async Task<IActionResult> GetUserProfileAsync(string userId)
         {
             var result = await memberService.GetUserProfileAsync(userId);
             return CreateObjectResult(result);
         }
 
-        [HttpPut("updatemember")]
+        [HttpPut("update-member")]
         public async Task<IActionResult> UpdateMemberProfileAsync(UpdateMemberProfileRequest request)
         {
             var result = await memberService.UpdateMemberProfileAsync(request);
@@ -23,7 +23,7 @@ namespace MiniCourse.API.Controllers
         }
 
 
-        [HttpPut("changepassword")]
+        [HttpPut("change-password")]
         public async Task<IActionResult> ChangeMemberPasswordAsync(ChangeMemberPasswordRequest request)
         {
             var result = await memberService.ChangeMemberPasswordAsync(request);

@@ -10,7 +10,7 @@ namespace MiniCourse.WebUI.Categories
     {
         public async Task<ServiceResult<CategoryUpdateViewModel>> GetCategoryAsync(int categoryId)
         {
-            var address = $"/api/Categories/getcategory?categoryId={categoryId}";
+            var address = $"/api/Categories/get-category?categoryId={categoryId}";
 
             var response = await client.GetAsync(address);
 
@@ -33,7 +33,7 @@ namespace MiniCourse.WebUI.Categories
 
         public async Task<ServiceResult<List<CategoryViewModel>>> GetCategoriesAsync()
         {
-            var address = "/api/Categories/getcategories";
+            var address = "/api/Categories/get-categories";
             var response = await client.GetAsync(address);
 
             if (!response.IsSuccessStatusCode)
@@ -49,7 +49,7 @@ namespace MiniCourse.WebUI.Categories
 
         public async Task<ServiceResult> CreateCategoryAsync(CategoryCreateViewModel model)
         {
-            var address = "/api/Categories/createcategory";
+            var address = "/api/Categories/create-category";
 
             var response = await client.PostAsJsonAsync(address, model);
 
@@ -69,7 +69,7 @@ namespace MiniCourse.WebUI.Categories
 
         public async Task<ServiceResult> UpdateCategoryAsync(CategoryUpdateViewModel model)
         {
-            var address = "/api/Categories/updatecategory";
+            var address = "/api/Categories/update-category";
 
             var response = await client.PutAsJsonAsync(address, model);
 
@@ -87,7 +87,7 @@ namespace MiniCourse.WebUI.Categories
 
         public async Task<ServiceResult> DeleteCategoryAsync(int categoryId)
         {
-            var address = $"/api/Categories/deletecategory?categoryId={categoryId}";
+            var address = $"/api/Categories/delete-category?categoryId={categoryId}";
 
             var response = await client.DeleteAsync(address);
 

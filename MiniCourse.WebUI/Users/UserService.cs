@@ -12,7 +12,7 @@ namespace MiniCourse.WebUI.Users
     {
         public async Task<ServiceResult<List<UserViewModel>>> GetUsersAsync()
         {
-            var address = "/api/Users/getusers";
+            var address = "/api/Users/get-users";
 
             var response = await client.GetAsync(address);
 
@@ -42,7 +42,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult<UserUpdateViewModel>> GetUserAsync(string userId)
         {
-            var address = $"/api/Users/getuser?userId={userId}";
+            var address = $"/api/Users/get-user?userId={userId}";
 
             var response = await client.GetAsync(address);
 
@@ -68,7 +68,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> CreateUserAsync(UserCreateViewModel model)
         {
-            var address = "/api/Users/createuser";
+            var address = "/api/Users/create-user";
 
             var response = await client.PostAsJsonAsync(address, model);
 
@@ -89,7 +89,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> UpdateUserAsync(UserUpdateViewModel model)
         {
-            var address = "/api/Users/updateuser";
+            var address = "/api/Users/update-user";
 
             var response = await client.PutAsJsonAsync(address, model);
 
@@ -108,7 +108,7 @@ namespace MiniCourse.WebUI.Users
 
         public async Task<ServiceResult> DeleteUserAsync(string userId)
         {
-            var address = $"/api/Users/deleteuser?userId={userId}";
+            var address = $"/api/Users/delete-user?userId={userId}";
 
             var response = await client.DeleteAsync(address);
 
