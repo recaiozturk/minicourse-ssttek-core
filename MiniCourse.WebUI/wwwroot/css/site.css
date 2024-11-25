@@ -70,6 +70,13 @@ body {
     background-color: red;
 }
 
+.server-alert-info {
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: deepskyblue;
+}
+
 .spinnerSearch {
     position: relative;
     right: -1px;

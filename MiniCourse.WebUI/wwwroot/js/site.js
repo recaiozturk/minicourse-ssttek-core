@@ -64,6 +64,8 @@ $(document).on('click', '.add-to-basket', function () {
 $(document).ready(function () {
     setTimeout(function () {
         $(".server-alert-success").slideUp();
+        $(".server-alert-danger").slideUp();
+        $(".server-alert-info").slideUp();
     }, 2000);
 });
 

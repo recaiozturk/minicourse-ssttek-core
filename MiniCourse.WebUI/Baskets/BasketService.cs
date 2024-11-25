@@ -79,7 +79,7 @@ namespace MiniCourse.WebUI.Baskets
             if(userId is null)
             {
                 var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
-                tempData["ErrorMessage"] = $"Sepetinizdce işlem yapabilmeniz için Lütfen giriş yapınız";
+                tempData["InfoMessage"] = $"Sepetinizdce işlem yapabilmeniz için Lütfen giriş yapınız";
                 return ServiceResult<BasketDetailViewModel>.Fail("");
             }
                 
@@ -90,6 +90,8 @@ namespace MiniCourse.WebUI.Baskets
             if (!response.IsSuccessStatusCode)
             {
                 var problemDetail = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                var tempData = tempDataDictionaryFactory.GetTempData(httpContextAccessor.HttpContext);
+                tempData["InfoMessage"] = $"Sepetinizdee Ürün Bulunmamaktadir";
                 return ServiceResult<BasketDetailViewModel>.Fail(problemDetail!.Detail!);
             }
 

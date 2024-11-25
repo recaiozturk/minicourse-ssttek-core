@@ -21,7 +21,7 @@ namespace MiniCourse.Service.Courses
 
         public async Task<ApiServiceResult<List<CourseResponse>>> GetCoursesWithCategoryAsync()
         {
-            var courses = await courseRepository.GetCoursesWithCategoryQuaaryble().ToListAsync();
+            var courses = await courseRepository.GetCoursesWithCategoryQuaaryble().OrderByDescending(x=>x.Id).ToListAsync();
 
             var courseResponses = mapper.Map<List<CourseResponse>>(courses);
 
