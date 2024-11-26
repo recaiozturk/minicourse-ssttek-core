@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MiniCourse.API.Extensions;
+using MiniCourse.API.Filters;
+using MiniCourse.API.Filters.Auth;
 using MiniCourse.Repository.Extensions;
 using MiniCourse.Service.Extensions;
 using NLog.Web;
@@ -44,7 +47,10 @@ builder.Services.AddAuthentication(opt =>
         ValidateAudience = false
     };
 });
+
 builder.Services.AddAuthorization();
+
+builder.Services.AddSwaggerDocExt();
 
 var app = builder.Build();
 
