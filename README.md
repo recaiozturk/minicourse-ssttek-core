@@ -36,7 +36,8 @@ Follow these steps to run the MiniCourse application after cloning the repositor
 
 **1. Clone the Repository**
 ```
-git clone https://github.com/your-repository-url  
+
+git clone https://github.com/recaiozturk/minicourse-ssttek-core 
 cd MiniCourse
 ```
 
